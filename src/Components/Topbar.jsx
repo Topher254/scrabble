@@ -1,5 +1,6 @@
 import React from "react";
 import { Navbar_components } from "../Contraints";
+import { Link } from "react-router-dom";
 
 const Topbar = () => {
   return (
@@ -10,8 +11,10 @@ const Topbar = () => {
       <div className="flex ">
         {Navbar_components.map((nav, index) => (
           <ul key={index}>
+          <Link to={nav.href}>
             <li className="mx-2 hover:cursor-pointer hover:text-yellow-600">{nav.label}</li>
-          </ul>
+            </Link> 
+            </ul>
         ))}
       </div>
     </div>

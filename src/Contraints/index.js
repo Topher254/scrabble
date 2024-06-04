@@ -1,14 +1,14 @@
 export const Navbar_components = [
   {
     label: "ABOUT",
-    href: "#",
+    href: "/about",
   },
   {
-    label: "",
-    href: "#",
+    label: "LOG IN",
+    href: "/signin",
   },
   {
-    label: "SIGN OUT",
-    href: "#",
+    label: "SIGN UP",
+    href: "/signout",
   },
 ];

@@ -1,18 +1,25 @@
-import Footer from "./Components/Footer"
-import Maingame from "./Components/Maingame"
-import Topbar from "./Components/Topbar"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Footer from "./Components/Footer";
+import Maingame from "./Components/Maingame";
+import Topbar from "./Components/Topbar";
+import SignUp from "./Pages/SignUp";
+import SignIn from "./Pages/SignIn";
 
 function App() {
-  
-
   return (
     <div>
-    <Topbar/>
-    <Maingame/>
-    <Footer/>
+      <BrowserRouter>
+        <Topbar />
+          <Routes>
+          <Route path="/" element= {<Maingame />}/>
+          <Route path="/signout" element={<SignUp/>}/>
+          <Route path="/signin" element={<SignIn/>}/>
+          
+        </Routes>
+        <Footer/>
+      </BrowserRouter>
     </div>
-      
-  )
+  );
 }
 
-export default App
+export default App;
