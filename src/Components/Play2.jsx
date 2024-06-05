@@ -318,54 +318,57 @@ const Play2 = () => {
   ];
 
   return (
-    <div>
-      {GridArray.map((grid, index) => (
-        <div key={index}>
-          <div className="flex">
-            {grid.map((row, i) => (
-              <p
-                className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
-                style={{
-                  backgroundColor:
-                    row.Multi === "triplew"
-                      ? "Tomato"
-                      : row.Multi === "doubleL"
-                      ? "DeepSkyBlue"
-                      : row.Multi === "triplel"
-                      ? "blue"
-                      : row.Multi === "doublew"
-                      ? "DeepPink"
-                      : row.Multi === "_"
-                      ? "MediumVioletRed"
-                      : "",
-                }}
-              >
-                {row.id}
-                <span
-                className="text-[8px] flex text-white"
-                style={{
-                  visibility: row.Multi === "zero" ? "hidden" : "",
-                  color: row.Multi === "_" ? "black" : "", 
-                }}
-              >
-                {row.Multi}
-                <span
-                className="flex flex-row"
-                  style={{
-                    visibility: row.Multi !== "_" ? "hidden" : "",
-                  }}
-                >
-                  <FaStar size={25}/>
-                </span>
-              </span>
-              
-              </p>
-            ))}
-          </div>
+   
+    
+        <div className="grid-container w-[100%] h-[100%]" >
+          {GridArray.map((grid, index) => (
+            <div key={index}>
+              <div className="flex">
+                {grid.map((row, i) => (
+                  <p
+                    key={i}
+                    className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
+                    style={{
+                      backgroundColor:
+                        row.Multi === "triplew"
+                          ? "Tomato"
+                          : row.Multi === "doubleL"
+                          ? "DeepSkyBlue"
+                          : row.Multi === "triplel"
+                          ? "blue"
+                          : row.Multi === "doublew"
+                          ? "DeepPink"
+                          : row.Multi === "_"
+                          ? "MediumVioletRed"
+                          : "",
+                    }}
+                  >
+                    {row.id}
+                    <span
+                      className="text-[8px] flex text-white"
+                      style={{
+                        visibility: row.Multi === "zero" ? "hidden" : "",
+                        color: row.Multi === "_" ? "black" : "", 
+                      }}
+                    >
+                      {row.Multi}
+                      <span
+                        className="flex flex-row"
+                        style={{
+                          visibility: row.Multi !== "_" ? "hidden" : "",
+                        }}
+                      >
+                        <FaStar size={25}/>
+                      </span>
+                    </span>
+                  </p>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
-  );
-};
-
-export default Play2;
+      );
+    };
+    
+    export default Play2;
+    

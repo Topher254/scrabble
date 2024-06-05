@@ -8,7 +8,7 @@ import GridCell from "./GridCell";
 
 const Maingame = () => {
   return (
-    <div className="bg-[url(imagee)] shadow-md shadow-green-650 px-[1em] py-[1em] mx-[4em] my-[4em] min-h-[60%] ">
+    <div className="bg-[url(imagee)] shadow-md shadow-green-650 px-[1em] py-[1em] mx-[4em] my-[4em] min-h-[60%]  ">
       <div className="flex justify-between">
         <div>
           <a className="bg-green-700 flex justify-center items-center text-white p-2 rounded">
@@ -33,24 +33,95 @@ const Maingame = () => {
           </a>
         </div>
       </div>
-      <div className="py-[2em]">
-      <div>
-      <Play2/>
-      
-     
-      
-      </div>
+      <div className="py-[1em] flex justify-center">
+        <div className="bg-green-600 px-[2em] text-white flex flex-col justify-evenly">
+          <div>
+            <h2 className="font-semibold p-2 text-xl">Scores</h2>
+            <div>
+              <ul className="pl-2">
+                <li className="flex items-center">
+                  <img src={imagee} className="w-10 mr-2 rounded-full" />
+                  Player1{" "}
+                  <span className="pl-2">
+                    Score
+                    <a className="ml-1  p-2 bg-white text-green-600 ">56</a>
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <img src={imagee} className="w-10 mr-2 rounded-full" />
+                  Player1{" "}
+                  <span className="pl-2">
+                    Score
+                    <a className="ml-1  p-2 bg-white text-green-600 ">65</a>
+                  </span>
+                </li>
+                <li className="flex items-center">
+                  <img src={imagee} className="w-10 mr-2 rounded-full" />
+                  Player1{" "}
+                  <span className="pl-2">
+                    Score
+                    <a className="ml-1  p-2 bg-white text-green-600 ">32</a>
+                  </span>
+                </li>
+              </ul>
+              <h2 className="font-semibold text-xl py-[1em]">
+                Winner
+                <span className="text-[15px] min-w-[45px] p-1 bg-white text-green-600 ml-2">
+                  Winner
+                </span>
+              </h2>
+            </div>
+          </div>
+          <div>
+            <h1 className="font-semibold p-2 text-xl">Words</h1>
+            <div className="pl-2">
+              <p>Word1</p>
+              <p>Word2</p>
+              <p>Word3</p>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center items-center">
+          <Play2 />
+        </div>
+        <div className="bg-green-600 px-[2em] text-white flex flex-col justify-evenly">
+          <div>
+            <h2 className="font-semibold p-2 ">Players Online</h2>
+            <div>
+              <ul className="pl-2">
+                <li className="flex items-center">
+                  <img src={imagee} className="w-10 mr-2 rounded-full" />
+                  Player1
+                </li>
+                <li className="flex items-center">
+                  <img src={imagee} className="w-10 mr-2 rounded-full" />
+                  Player1
+                </li>
+                <li className="flex items-center">
+                  <img src={imagee} className="w-10 mr-2 rounded-full" />
+                  Player1
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div>
+            <h1 className="font-semibold p-2">Comments</h1>
+            <div className="pl-2">
+              <p>Comment1</p>
+              <p>Comment2</p>
+              <p>Comment3</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="flex justify-between">
-      <div className="flex">
-        <a className="bg-green-700 flex justify-center items-center text-white p-2 rounded">
-          Time
-          
-        </a>
-        <p className="px-2 items-center border-b-2 mx-2 flex">0</p>
+        <div className="flex">
+          <a className="bg-green-700 flex justify-center items-center text-white p-2 rounded">
+            Time
+          </a>
+          <p className="px-2 items-center border-b-2 mx-2 flex">0</p>
+        </div>
       </div>
-      
-    </div>
     </div>
   );
 };
