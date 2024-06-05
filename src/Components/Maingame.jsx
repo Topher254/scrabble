@@ -4,6 +4,7 @@ import { GiBullets } from "react-icons/gi";
 import { FaAngleDown, FaBars } from "react-icons/fa";
 import Play from "./Play";
 import Play2 from "./Play2";
+import GridCell from "./GridCell";
 
 const Maingame = () => {
   return (
@@ -35,6 +36,7 @@ const Maingame = () => {
       <div className="py-[2em]">
       <div>
       <Play2/>
+      
      
       
       </div>

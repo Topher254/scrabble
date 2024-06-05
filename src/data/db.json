@@ -1,0 +1,10 @@
+{
+    "words":[
+        {"word":"hello","id":1},
+        {"word":"hi","id":2},
+        {"word":"mum","id":3},
+        {"word":"dad","id":4},
+        {"word":"hey","id":5},
+        {"word":"helloing","id":6}
+    ]
+}
