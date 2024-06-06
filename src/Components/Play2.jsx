@@ -330,7 +330,7 @@ const Play2 = () => {
       {GridArray.map((grid, rowIndex) => (
         <div key={rowIndex}>
           <div className="flex">
-            {grid.map((row, i) => (
+            {grid.map((cell, i) => (
               <p 
               onClick={HandlePlay}
                 key={i}
@@ -350,7 +350,7 @@ const Play2 = () => {
                       : "",
                 }}
               >
-                {row.id}
+                {cell.id}
               
                 <span
                   className="text-[8px] flex text-white"
