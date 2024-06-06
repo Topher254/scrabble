@@ -321,7 +321,7 @@ const Play2 = () => {
                       : "",
                 }}
               >
-                {row.id}
+                {cell.id}
               
                 <span
                   className="text-[8px] flex text-white"
