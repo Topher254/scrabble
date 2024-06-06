@@ -301,9 +301,9 @@ const Play2 = () => {
       {GridArray.map((grid, rowIndex) => (
         <div key={rowIndex}>
           <div className="flex">
-            {grid.map((row, i) => (
+            {grid.map((cell, i) => (
               <p 
-              onClick={HandlePlay}
+             
                 key={i}
                 className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
                 style={{
