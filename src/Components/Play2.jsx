@@ -1,44 +1,3 @@
-/*import React, { useState } from 'react';
-
-
-const Play2 = () => {
-    const [letters, setLetters] = useState(Array(255).fill(''));
-
-    //number arrays
-    const buttonIndices = [...Array(64).keys()];
-
-    const getInput = (index) => {
-        let inputLetter = prompt("Enter Your letter");
-        if (inputLetter) {
-            setLetters(prevLetters => {
-                const newLetters = [...prevLetters];
-                newLetters[index] = inputLetter;
-                return newLetters;
-            });
-        }
-    }
-
-    const checkers=[
-    
-    ]
-
-    return (
-        <div className='flex flex-wrap'>
-            {buttonIndices.map((index) => (
-                <div className='flex flex-shrink-0 ' key={index} >
-                    <button type='input' onClick={() => getInput(index)} className='bg-yellow-300 text-red-500 font-semibold flex justify-center items-center p-3 w-[2em] h-[2em] border border-green-300 '>
-                        {letters[index]}
-                    </button>
-                </div>
-            ))}
-
-            <div>this is  a div</div>
-        </div>
-    );
-}
-
-export default Play2;*/
-
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 
@@ -46,8 +5,8 @@ const Play2 = () => {
   const GridArray = [
     //1
     [
-      { id: "", Multi: "triplew",indexa:1 },
-      { id: "", Multi: "zero",indexa:2 },
+      { id: "", Multi: "triplew" },
+      { id: "", Multi: "zero" },
       { id: "", Multi: "zero" },
       { id: "", Multi: "doubleL" },
       { id: "", Multi: "zero" },
@@ -316,24 +275,36 @@ const Play2 = () => {
     ],
   ];
 
-  const [Player_Input, setPlayer_Input] = useState(null);
-  const HandlePlay = () => {
-    const Player_s_input = prompt("Enter Letter");
-    if (Player_s_input !== null) {
-      setPlayer_Input(Player_s_input);
+  const [letters, setLetters] = useState(Array(15).fill(Array(15).fill("")));
+
+  const getInput = (rowIndex, colIndex) => {
+    let inputLetter = prompt("Enter your letter (A-Z):");
+    if (inputLetter) {
+      inputLetter = inputLetter.toUpperCase();
+      if (inputLetter.length === 1 && inputLetter >= 'A' && inputLetter <= 'Z') {
+        setLetters((prevLetters) => {
+          const newLetters = prevLetters.map((row, rIdx) =>
+            row.map((col, cIdx) =>
+              rowIndex === rIdx && colIndex === cIdx ? inputLetter : col
+            )
+          );
+          return newLetters;
+        });
+      } else {
+        alert("Please enter a valid letter (A-Z).");
+      }
     }
   };
-
 
   return (
     <div className="flex flex-col w-[100%] h-[100%]">
       {GridArray.map((grid, rowIndex) => (
         <div key={rowIndex}>
           <div className="flex">
-            {grid.map((row, i) => (
-              <p 
-              onClick={HandlePlay}
-                key={i}
+            {grid.map((cell, colIndex) => (
+              <p
+                onClick={() => getInput(rowIndex, colIndex)}
+                key={colIndex}
                 className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
                 style={{
                   backgroundColor:
@@ -350,8 +321,7 @@ const Play2 = () => {
                       : "",
                 }}
               >
-                {row.id}
-              
+                {letters[rowIndex][colIndex]}
                 <span
                   className="text-[8px] flex text-white"
                   style={{
@@ -369,13 +339,6 @@ const Play2 = () => {
                     <FaStar size={25} />
                   </span>
                 </span>
-                {/*<span onClick={()=>HandlePlay(index)} className="flex justify-center items-center">
-                {Player_Input[index]}
-                </span>
-                {buttonIndex.map((index)=>(
-                  <span key={index}></span>
-                ))}*/}
-                
               </p>
             ))}
           </div>
