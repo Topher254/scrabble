@@ -321,7 +321,12 @@ const Play2 = () => {
                       : "",
                 }}
               >
+<<<<<<< HEAD
                 {letters[rowIndex][colIndex]}
+=======
+                {cell.id}
+              
+>>>>>>> e90d471ae21c9c969576aeef842c5e53dd72b343
                 <span
                   className="text-[8px] flex text-white"
                   style={{
