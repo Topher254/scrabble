@@ -6,8 +6,10 @@ const Topbar = () => {
   return (
     <div className="flex justify-between py-[1em] px-[2em] bg-green-700 text-white">
       <div>
+      <Link to='/about'>
         <h1 className="text-xl font-semibold ">Scrabble Pro</h1>
-      </div>
+        </Link>
+        </div>
       <div className="flex ">
         {Navbar_components.map((nav, index) => (
           <ul key={index}>
