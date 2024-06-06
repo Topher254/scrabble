@@ -301,10 +301,10 @@ const Play2 = () => {
       {GridArray.map((grid, rowIndex) => (
         <div key={rowIndex}>
           <div className="flex">
-            {grid.map((cell, i) => (
-              <p 
-             
-                key={i}
+            {grid.map((cell, colIndex) => (
+              <p
+                onClick={() => getInput(rowIndex, colIndex)}
+                key={colIndex}
                 className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
                 style={{
                   backgroundColor:
@@ -321,8 +321,7 @@ const Play2 = () => {
                       : "",
                 }}
               >
-                {row.id}
-              
+                {letters[rowIndex][colIndex]}
                 <span
                   className="text-[8px] flex text-white"
                   style={{
