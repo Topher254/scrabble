@@ -20,7 +20,7 @@ export const about_items = [
   },
   {
     abouta: "Starting a Word",
-    description: "Each player draws 7 letter tiles from the pool to form their initial hand. Decide who goes first. This can be done by drawing tiles, with the player drawing the letter closest to 'A' going first."
+    description: "The first player places a word on the board, with one letter on the center square (marked with a star). This forms the anchor for subsequent words."
   },
   {
     abouta: "Setup",
