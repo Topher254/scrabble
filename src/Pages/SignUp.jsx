@@ -41,7 +41,7 @@ const SignUp = () => {
         </div>
         <div className='flex justify-center items-center mt-4'>
           <button className='bg-green-600 text-white py-2 px-4 rounded-md mr-2'>Submit</button>
-          <button className='bg-white text-green-600 border border-green-600 py-2 px-4 rounded-md mr-2'>Submit</button>
+          <button className='bg-white text-green-600 border border-green-600 py-2 px-4 rounded-md mr-2'>Log In</button>
            </div>
       </div>
     </div>
