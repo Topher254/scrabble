@@ -316,10 +316,10 @@ const Play2 = () => {
       {GridArray.map((grid, rowIndex) => (
         <div key={rowIndex}>
           <div className="flex">
-            {grid.map((cell, i) => (
-              <p 
-             
-                key={i}
+            {grid.map((cell, colIndex) => (
+              <p
+                onClick={() => getInput(rowIndex, colIndex)}
+                key={colIndex}
                 className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
                 style={{
                   backgroundColor:
@@ -336,8 +336,12 @@ const Play2 = () => {
                       : "",
                 }}
               >
+<<<<<<< HEAD
+                {letters[rowIndex][colIndex]}
+=======
                 {cell.id}
               
+>>>>>>> e90d471ae21c9c969576aeef842c5e53dd72b343
                 <span
                   className="text-[8px] flex text-white"
                   style={{
