@@ -9,7 +9,7 @@ import Letters from "./Letters";
 
 const Maingame = () => {
   return (
-    <div className="bg-[url(imagee)] shadow-md shadow-green-650 px-[1em] py-[1em] mx-[4em] my-[4em] min-h-[60%] flex flex-col ">
+    <div className="bg-[url(imagee)] shadow-md shadow-green-650 px-[1em] py-[1em] mx-[1em] my-[1em] min-h-[60%] flex flex-col ">
       <div className="flex justify-between ">
         <div>
           <a className="bg-green-700 flex justify-center items-center text-white p-2 rounded">
@@ -35,7 +35,7 @@ const Maingame = () => {
         </div>
       </div>
       {/*inside flex div */}
-      <div className="py-[1em] flex flex-col justify-center">
+      <div className="py-[1em] flex  justify-center">
         <div className="bg-green-600 px-[2em] text-white flex flex-col justify-evenly">
           <div>
             <h2 className="font-semibold p-2 text-xl">Scores</h2>
@@ -83,8 +83,10 @@ const Maingame = () => {
             </div>
           </div>
         </div>
+  {/*playyy */}
         <div className="flex justify-center items-center">
-          <Play2 className='flex' />
+         <Play2 className='flex' />
+         {/* <Play className='flex'/>*/}
         </div>
         <div className="bg-green-600 px-[2em] text-white flex flex-col justify-evenly">
           <div>

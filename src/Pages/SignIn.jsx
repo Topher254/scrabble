@@ -1,5 +1,7 @@
 import React from 'react';
 import imej from '../assets/image2.jpeg';
+import { Link } from 'react-router-dom';
+
 
 const SignIn = () => {
   return (
@@ -24,6 +26,10 @@ const SignIn = () => {
         <div className='flex justify-center items-center mt-4'>
           <button className='bg-green-600 text-white py-2 px-4 rounded-md mr-2'>Log In</button>
           <a href="#" className='text-green-600'>Forgot password ?</a>
+        </div>
+        <div className='flex justify-center py-[1em]'>
+        <p className=' mx-2 tracking-tight text-green-800'>New Player ?</p>
+        <Link to="/signout" className='hover:cursor-pointer text-blue-500'>Create Account</Link>
         </div>
       </div>
     </div>

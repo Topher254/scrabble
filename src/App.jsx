@@ -4,6 +4,7 @@ import Maingame from "./Components/Maingame";
 import Topbar from "./Components/Topbar";
 import SignUp from "./Pages/SignUp";
 import SignIn from "./Pages/SignIn";
+import About from "./Components/About";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element= {<Maingame />}/>
           <Route path="/signout" element={<SignUp/>}/>
           <Route path="/signin" element={<SignIn/>}/>
+          <Route path="/about" element={<About/>}/>
           
         </Routes>
         <Footer/>

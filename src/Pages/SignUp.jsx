@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import imej from '../assets/image.jpeg';
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -180,12 +181,14 @@ const SignUp = () => {
             onClick={handleSubmit}
             className='text-green-600 bg-white border border-green-600 py-2 px-4 rounded-md mr-2'
           >
-            Log In
+           <Link to="/signin"> Log In</Link>
           </button>
           
         </div>
+        
         {message && <div className='mt-4 text-red-600'>{message}</div>}
       </div>
+      
     </div>
   );
 }
