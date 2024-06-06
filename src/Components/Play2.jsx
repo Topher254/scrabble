@@ -275,6 +275,7 @@ const Play2 = () => {
     ],
   ];
 
+<<<<<<< HEAD
   const [letters, setLetters] = useState(Array(15).fill(Array(15).fill("")));
 
   const getInput = (rowIndex, colIndex) => {
@@ -297,6 +298,18 @@ const Play2 = () => {
   };
 
   let testa = "i ama "
+=======
+  let muthee = [
+    {
+    name: "sam",
+    seconda: "sam2"
+  },
+    {
+    name: "sam11",
+    seconda: "sam211"
+  },
+]
+>>>>>>> 5d88dd2436e05da85c103ddc5d4c5d2f06c20133
 
   return (
     <div className="flex flex-col w-[100%] h-[100%]">
