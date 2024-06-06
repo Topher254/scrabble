@@ -146,7 +146,7 @@ const SignUp = () => {
                   minLength="6"
                   required
                 />
-                <button type="button" onClick={generateAndCopyPassword} className="ml-2 bg-gray-400 px-3 py-1 rounded-md text-white">Generate & Copy</button>
+                <button type="button" onClick={generateAndCopyPassword} className="ml-2 bg-green-600 px-3 py-1 rounded-md text-white text-sm flex">Generate & Copy</button>
               </div>
               {passwordError && <div className='text-red-600'>{passwordError}</div>}
             </div>
