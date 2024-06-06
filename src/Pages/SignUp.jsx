@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import imej from '../assets/image.jpeg';
 
 const SignUp = () => {
-  // State variables to store input values
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -10,18 +9,34 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
-  // Handle form submission
+  // Function to generate a random password and copy it to clipboard
+  const generateAndCopyPassword = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let generatedPassword = '';
+    for (let i = 0; i < 10; i++) {
+      generatedPassword += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    setPassword(generatedPassword);
+    navigator.clipboard.writeText(generatedPassword);
+    alert('Password copied to clipboard!');
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Validate password match
     if (password !== repeatPassword) {
       setMessage('Passwords do not match!');
       return;
     }
 
-    // Mock saving the user details
+    const passwordRegex = /^(?=.*[0-9]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      setPasswordError('Password must be at least 6 characters and include at least one number.');
+      return;
+    }
+
     const userDetails = {
       firstName,
       lastName,
@@ -32,7 +47,6 @@ const SignUp = () => {
 
     console.log('User Details:', userDetails);
 
-    // Clear the form
     setFirstName('');
     setLastName('');
     setUsername('');
@@ -40,6 +54,17 @@ const SignUp = () => {
     setPassword('');
     setRepeatPassword('');
     setMessage('Sign-up successful!');
+    setPasswordError('');
+  };
+
+  const handleKeyDown = (e, nextFieldId) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      const nextField = document.getElementById(nextFieldId);
+      if (nextField) {
+        nextField.focus();
+      }
+    }
   };
 
   return (
@@ -60,6 +85,7 @@ const SignUp = () => {
                 className='w-full bg-green-300 p-1 outline-none'
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, 'last-name')}
                 required
               />
             </div>
@@ -72,6 +98,7 @@ const SignUp = () => {
                 className='w-full bg-green-300 p-1 outline-none'
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, 'username')}
                 required
               />
             </div>
@@ -84,6 +111,7 @@ const SignUp = () => {
                 className='w-full bg-green-300 p-1 outline-none'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, 'gender')}
                 required
               />
             </div>
@@ -95,6 +123,7 @@ const SignUp = () => {
                 className='w-full bg-green-300 p-1 outline-none'
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, 'password')}
                 required
               >
                 <option value="">Select your gender</option>
@@ -105,15 +134,21 @@ const SignUp = () => {
             </div>
             <div className='my-2'>
               <label htmlFor="password" className='mr-2'>Password</label>
-              <input 
-                type="password" 
-                id="password" 
-                name="password" 
-                className='w-full bg-green-300 p-1 outline-none'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="flex items-center">
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password" 
+                  className='w-full bg-green-300 p-1 outline-none'
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onKeyDown={(e) => handleKeyDown(e, 'repeat-password')}
+                  minLength="6"
+                  required
+                />
+                <button type="button" onClick={generateAndCopyPassword} className="ml-2 bg-gray-400 px-3 py-1 rounded-md text-white">Generate & Copy</button>
+              </div>
+              {passwordError && <div className='text-red-600'>{passwordError}</div>}
             </div>
             <div className='my-2'>
               <label htmlFor="repeat-password" className='mr-2'>Repeat Password</label>
@@ -124,6 +159,7 @@ const SignUp = () => {
                 className='w-full outline-none bg-green-300 p-1'
                 value={repeatPassword}
                 onChange={(e) => setRepeatPassword(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e, 'submit-button')}
                 required
               />
             </div>
@@ -132,6 +168,7 @@ const SignUp = () => {
         <div className='flex justify-center items-center mt-4'>
           <button 
             type="submit"
+            id="submit-button"
             onClick={handleSubmit}
             className='bg-green-600 text-white py-2 px-4 rounded-md mr-2'
           >
