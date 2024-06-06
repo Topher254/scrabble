@@ -1,4 +1,43 @@
+/*import React, { useState } from 'react';
 
+
+const Play2 = () => {
+    const [letters, setLetters] = useState(Array(255).fill(''));
+
+    //number arrays
+    const buttonIndices = [...Array(64).keys()];
+
+    const getInput = (index) => {
+        let inputLetter = prompt("Enter Your letter");
+        if (inputLetter) {
+            setLetters(prevLetters => {
+                const newLetters = [...prevLetters];
+                newLetters[index] = inputLetter;
+                return newLetters;
+            });
+        }
+    }
+
+    const checkers=[
+    
+    ]
+
+    return (
+        <div className='flex flex-wrap'>
+            {buttonIndices.map((index) => (
+                <div className='flex flex-shrink-0 ' key={index} >
+                    <button type='input' onClick={() => getInput(index)} className='bg-yellow-300 text-red-500 font-semibold flex justify-center items-center p-3 w-[2em] h-[2em] border border-green-300 '>
+                        {letters[index]}
+                    </button>
+                </div>
+            ))}
+
+            <div>this is  a div</div>
+        </div>
+    );
+}
+
+export default Play2;*/
 
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
@@ -277,64 +316,54 @@ const Play2 = () => {
     ],
   ];
 
-  const [Player_Input, setPlayer_Input] = useState('');
-
-  const buttonIndex = GridArray.indexa;
-
+  const [Player_Input, setPlayer_Input] = useState(null);
   const HandlePlay = () => {
-   
     const Player_s_input = prompt("Enter Letter");
-    if (Player_s_input) {
-      setPlayer_Input(prevLetters=>{
-        const newLetter = [...prevLetters];
-        newLetter[buttonIndex] = Player_s_input
-        return newLetter;
-        
-      })
+    if (Player_s_input !== null) {
+      setPlayer_Input(Player_s_input);
     }
   };
 
 
   return (
     <div className="flex flex-col w-[100%] h-[100%]">
-      {GridArray.map((grid, index) => (
-        <div key={index}>
+      {GridArray.map((grid, rowIndex) => (
+        <div key={rowIndex}>
           <div className="flex">
             {grid.map((row, i) => (
               <p 
-             
-              onClick={()=>HandlePlay(buttonIndex)}
+              onClick={HandlePlay}
                 key={i}
                 className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
                 style={{
                   backgroundColor:
-                    row.Multi === "triplew"
+                    cell.Multi === "triplew"
                       ? "Tomato"
-                      : row.Multi === "doubleL"
+                      : cell.Multi === "doubleL"
                       ? "DeepSkyBlue"
-                      : row.Multi === "triplel"
+                      : cell.Multi === "triplel"
                       ? "blue"
-                      : row.Multi === "doublew"
+                      : cell.Multi === "doublew"
                       ? "DeepPink"
-                      : row.Multi === "_"
+                      : cell.Multi === "_"
                       ? "MediumVioletRed"
                       : "",
                 }}
               >
-              {Player_Input[index]}
+                {row.id}
               
                 <span
                   className="text-[8px] flex text-white"
                   style={{
-                    visibility: row.Multi === "zero" ? "hidden" : "",
-                    color: row.Multi === "_" ? "black" : "",
+                    visibility: cell.Multi === "zero" ? "hidden" : "",
+                    color: cell.Multi === "_" ? "black" : "",
                   }}
                 >
-                  {row.Multi}
+                  {cell.Multi}
                   <span
                     className="flex flex-row"
                     style={{
-                      visibility: row.Multi !== "_" ? "hidden" : "",
+                      visibility: cell.Multi !== "_" ? "hidden" : "",
                     }}
                   >
                     <FaStar size={25} />
