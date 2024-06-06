@@ -5,11 +5,12 @@ import { FaAngleDown, FaBars } from "react-icons/fa";
 import Play from "./Play";
 import Play2 from "./Play2";
 import GridCell from "./GridCell";
+import Letters from "./Letters";
 
 const Maingame = () => {
   return (
-    <div className="bg-[url(imagee)] shadow-md shadow-green-650 px-[1em] py-[1em] mx-[4em] my-[4em] min-h-[60%]  ">
-      <div className="flex justify-between">
+    <div className="bg-[url(imagee)] shadow-md shadow-green-650 px-[1em] py-[1em] mx-[4em] my-[4em] min-h-[60%] flex flex-col ">
+      <div className="flex justify-between ">
         <div>
           <a className="bg-green-700 flex justify-center items-center text-white p-2 rounded">
             Level
@@ -33,7 +34,8 @@ const Maingame = () => {
           </a>
         </div>
       </div>
-      <div className="py-[1em] flex justify-center">
+      {/*inside flex div */}
+      <div className="py-[1em] flex flex-col justify-center">
         <div className="bg-green-600 px-[2em] text-white flex flex-col justify-evenly">
           <div>
             <h2 className="font-semibold p-2 text-xl">Scores</h2>
@@ -73,16 +75,16 @@ const Maingame = () => {
             </div>
           </div>
           <div>
-            <h1 className="font-semibold p-2 text-xl">Words</h1>
-            <div className="pl-2">
-              <p>Word1</p>
-              <p>Word2</p>
-              <p>Word3</p>
+            <h1 className="font-semibold p-2 text-xl">Letters</h1>
+            <div className="pl-2 py-2">
+            {/*Display of the random letters */}
+              <div><Letters/></div>
+              
             </div>
           </div>
         </div>
         <div className="flex justify-center items-center">
-          <Play2 />
+          <Play2 className='flex' />
         </div>
         <div className="bg-green-600 px-[2em] text-white flex flex-col justify-evenly">
           <div>

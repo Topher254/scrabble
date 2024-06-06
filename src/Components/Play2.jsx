@@ -39,7 +39,7 @@ const Play2 = () => {
 
 export default Play2;*/
 
-import React from "react";
+import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 
 const Play2 = () => {
@@ -314,61 +314,67 @@ const Play2 = () => {
       { id: "", Multi: "zero" },
       { id: "", Multi: "triplew" },
     ],
-   
   ];
 
+  const [Player_Input, setPlayer_Input] = useState(null);
+  const HandlePlay = () => {
+    const Player_s_input = prompt("Enter Letter");
+    if (Player_s_input !== null) {
+      setPlayer_Input(Player_s_input);
+    }
+  };
+
   return (
-   
-    
-        <div className="grid-container w-[100%] h-[100%]" >
-          {GridArray.map((grid, index) => (
-            <div key={index}>
-              <div className="flex">
-                {grid.map((row, i) => (
-                  <p
-                    key={i}
-                    className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
+    <div className="flex flex-col w-[100%] h-[100%]">
+      {GridArray.map((grid, index) => (
+        <div key={index}>
+          <div className="flex">
+            {grid.map((row, i) => (
+              <p 
+              onClick={HandlePlay}
+                key={i}
+                className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
+                style={{
+                  backgroundColor:
+                    row.Multi === "triplew"
+                      ? "Tomato"
+                      : row.Multi === "doubleL"
+                      ? "DeepSkyBlue"
+                      : row.Multi === "triplel"
+                      ? "blue"
+                      : row.Multi === "doublew"
+                      ? "DeepPink"
+                      : row.Multi === "_"
+                      ? "MediumVioletRed"
+                      : "",
+                }}
+              >
+                {row.id}
+              
+                <span
+                  className="text-[8px] flex text-white"
+                  style={{
+                    visibility: row.Multi === "zero" ? "hidden" : "",
+                    color: row.Multi === "_" ? "black" : "",
+                  }}
+                >
+                  {row.Multi}
+                  <span
+                    className="flex flex-row"
                     style={{
-                      backgroundColor:
-                        row.Multi === "triplew"
-                          ? "Tomato"
-                          : row.Multi === "doubleL"
-                          ? "DeepSkyBlue"
-                          : row.Multi === "triplel"
-                          ? "blue"
-                          : row.Multi === "doublew"
-                          ? "DeepPink"
-                          : row.Multi === "_"
-                          ? "MediumVioletRed"
-                          : "",
+                      visibility: row.Multi !== "_" ? "hidden" : "",
                     }}
                   >
-                    {row.id}
-                    <span
-                      className="text-[8px] flex text-white"
-                      style={{
-                        visibility: row.Multi === "zero" ? "hidden" : "",
-                        color: row.Multi === "_" ? "black" : "", 
-                      }}
-                    >
-                      {row.Multi}
-                      <span
-                        className="flex flex-row"
-                        style={{
-                          visibility: row.Multi !== "_" ? "hidden" : "",
-                        }}
-                      >
-                        <FaStar size={25}/>
-                      </span>
-                    </span>
-                  </p>
-                ))}
-              </div>
-            </div>
-          ))}
+                    <FaStar size={25} />
+                  </span>
+                </span>
+              </p>
+            ))}
+          </div>
         </div>
-      );
-    };
-    
-    export default Play2;
-    
+      ))}
+    </div>
+  );
+};
+
+export default Play2;
