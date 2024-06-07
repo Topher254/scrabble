@@ -296,6 +296,8 @@ const Play2 = () => {
     }
   };
 
+ 
+
   return (
     <div className="flex flex-col w-[100%] h-[100%]">
       {GridArray.map((grid, rowIndex) => (
