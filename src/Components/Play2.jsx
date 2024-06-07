@@ -281,11 +281,12 @@ const Play2 = () => {
 
 
   const getInput = (rowIndex, colIndex) => {
+    console.log(rowIndex,colIndex);
 
     if (isFirstInput && (rowIndex !== 7 || colIndex !== 7)) {
       alert("The first input must be at the center cell (7,7).");
       return;
-      console.log(rowIndex);
+      
     }
     let inputLetter = prompt("Enter your letter (A-Z):");
     if (inputLetter) {
@@ -335,6 +336,8 @@ const Play2 = () => {
                 }}
               >
                 {letters[rowIndex][colIndex]}
+                {console.log(letters[rowIndex][colIndex])}
+                
                 <span
                   className="text-[8px] flex text-white"
                   style={{
