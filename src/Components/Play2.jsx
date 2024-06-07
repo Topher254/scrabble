@@ -277,7 +277,16 @@ const Play2 = () => {
 
   const [letters, setLetters] = useState(Array(15).fill(Array(15).fill("")));
 
+  const [isFirstInput, setIsFirstInput] = useState(true);
+
+
   const getInput = (rowIndex, colIndex) => {
+
+    if (isFirstInput && (rowIndex !== 7 || colIndex !== 7)) {
+      alert("The first input must be at the center cell (7,7).");
+      return;
+      console.log(rowIndex);
+    }
     let inputLetter = prompt("Enter your letter (A-Z):");
     if (inputLetter) {
       inputLetter = inputLetter.toUpperCase();
@@ -290,6 +299,8 @@ const Play2 = () => {
           );
           return newLetters;
         });
+
+        setIsFirstInput(false);
       } else {
         alert("Please enter a valid letter (A-Z).");
       }
