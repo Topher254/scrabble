@@ -320,17 +320,6 @@ const Play2 = () => {
       
 
       if (inputLetter.length === 1 && inputLetter >= 'A' && inputLetter <= 'Z') {
-<<<<<<< HEAD
-        console.log(inputLetter);
-        //push the input letters to an array
-        
-      if (inputLetter){
-        let Word_Created = [''];
-
-        Word_Created.push(inputLetter);
-        console.log(Word_Created.toString());
-      };
-=======
         console.log(`${inputLetter}, ${letterValues[inputLetter]}`);
         
 
@@ -342,7 +331,6 @@ const Play2 = () => {
         } else if (cellMultiplier === "triplel") {
           letterValue *= 3;
         }
->>>>>>> 7f8913662112cbe1abf0515df7cb6e1b9257ed6f
 
         setLetters((prevLetters) => {
           const newLetters = prevLetters.map((row, rIdx) =>
