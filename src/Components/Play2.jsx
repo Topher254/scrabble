@@ -281,17 +281,24 @@ const Play2 = () => {
 
 
   const getInput = (rowIndex, colIndex) => {
+<<<<<<< HEAD
     console.log(rowIndex,colIndex);
+=======
+    console.log(rowIndex, colIndex);
+    console.log((letters[rowIndex],[colIndex]));
+>>>>>>> 3980147962b8a62cc76894753b4a2744cbaa6362
 
     if (isFirstInput && (rowIndex !== 7 || colIndex !== 7)) {
       alert("The first input must be at the center cell (7,7).");
       return;
       
     }
+    
     let inputLetter = prompt("Enter your letter (A-Z):");
     if (inputLetter) {
       inputLetter = inputLetter.toUpperCase();
       if (inputLetter.length === 1 && inputLetter >= 'A' && inputLetter <= 'Z') {
+        console.log(inputLetter);
         setLetters((prevLetters) => {
           const newLetters = prevLetters.map((row, rIdx) =>
             row.map((col, cIdx) =>
