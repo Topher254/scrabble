@@ -282,7 +282,7 @@ const Play2 = () => {
 
   const getInput = (rowIndex, colIndex) => {
 <<<<<<< HEAD
-    console.log(rowIndex,colIndex);
+  
 =======
     
 >>>>>>> 3980147962b8a62cc76894753b4a2744cbaa6362
