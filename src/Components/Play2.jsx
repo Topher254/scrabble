@@ -294,6 +294,15 @@ const Play2 = () => {
       inputLetter = inputLetter.toUpperCase();
       if (inputLetter.length === 1 && inputLetter >= 'A' && inputLetter <= 'Z') {
         console.log(inputLetter);
+        //push the input letters to an array
+        
+      if (inputLetter){
+        let Word_Created = [''];
+
+        Word_Created.push(inputLetter);
+        console.log(Word_Created.toString());
+      };
+
         setLetters((prevLetters) => {
           const newLetters = prevLetters.map((row, rIdx) =>
             row.map((col, cIdx) =>
