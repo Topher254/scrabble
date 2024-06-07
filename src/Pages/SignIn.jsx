@@ -24,7 +24,7 @@ const SignIn = () => {
           </div>
         </div>
         <div className='flex justify-center items-center mt-4'>
-         <Link to='/'> <button className='bg-green-600 text-white py-2 px-4 rounded-md mr-2'>Log In</button>
+         <Link to='/logged'> <button className='bg-green-600 text-white py-2 px-4 rounded-md mr-2'>Log In</button>
          </Link>
          <a href="#" className='text-green-600'>Forgot password ?</a>
         </div>
