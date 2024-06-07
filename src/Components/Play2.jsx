@@ -281,11 +281,7 @@ const Play2 = () => {
 
 
   const getInput = (rowIndex, colIndex) => {
-<<<<<<< HEAD
-  
-=======
     
->>>>>>> 3980147962b8a62cc76894753b4a2744cbaa6362
 
     if (isFirstInput && (rowIndex !== 7 || colIndex !== 7)) {
       alert("The first input must be at the center cell (7,7).");
