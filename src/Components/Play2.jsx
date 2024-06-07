@@ -275,6 +275,7 @@ const Play2 = () => {
     ],
   ];
 
+<<<<<<< HEAD
   //random letters
  
   function Random_Letters(){
@@ -297,22 +298,49 @@ console.log('Your Letters:', randomLetters);
 
 
     ///adghfsssssss
+=======
+  const letterValues = {
+    A: 1, B: 3, C: 3, D: 2, E: 1, F: 4, G: 2,
+    H: 4, I: 1, J: 8, K: 5, L: 1, M: 3, N: 1,
+    O: 1, P: 3, Q: 10, R: 1, S: 1, T: 1, U: 1,
+    V: 4, W: 4, X: 8, Y: 4, Z: 10
+  };
+>>>>>>> 7f8913662112cbe1abf0515df7cb6e1b9257ed6f
 
   const [letters, setLetters] = useState(Array(15).fill(Array(15).fill("")));
-
+  const [inputLetters, setInputLetters] = useState([]);
   const [isFirstInput, setIsFirstInput] = useState(true);
-
+  const [lastPosition, setLastPosition] = useState({ row: 7, col: 7 });
+  const [score, setScore] = useState(0);
 
   const getInput = (rowIndex, colIndex) => {
+<<<<<<< HEAD
     
+=======
+    console.log(rowIndex, colIndex);
+>>>>>>> 7f8913662112cbe1abf0515df7cb6e1b9257ed6f
 
     if (isFirstInput && (rowIndex !== 7 || colIndex !== 7)) {
       alert("The first input must be at the center cell (7,7).");
       return;
-      
     }
+<<<<<<< HEAD
     
     
+=======
+
+    if (!isFirstInput) {
+      const isValidMove = 
+        (rowIndex === lastPosition.row && Math.abs(colIndex - lastPosition.col) === 1) || 
+        (colIndex === lastPosition.col && Math.abs(rowIndex - lastPosition.row) === 1);
+
+      if (!isValidMove) {
+        alert("You can only place the letter adjacent to the last letter (up, down, left, or right).");
+        return;
+      }
+    }
+
+>>>>>>> 7f8913662112cbe1abf0515df7cb6e1b9257ed6f
     let inputLetter = prompt("Enter your letter (A-Z):");
     // Check if the entered letter is available among the random letters
       if (inputLetter && randomLetters.includes(inputLetter.toLowerCase())) {
@@ -326,6 +354,7 @@ console.log('Your Letters:', randomLetters);
       
 
       if (inputLetter.length === 1 && inputLetter >= 'A' && inputLetter <= 'Z') {
+<<<<<<< HEAD
         console.log(inputLetter);
         //push the input letters to an array
         
@@ -335,6 +364,19 @@ console.log('Your Letters:', randomLetters);
         Word_Created.push(inputLetter);
         console.log(Word_Created.toString());
       };
+=======
+        console.log(`${inputLetter}, ${letterValues[inputLetter]}`);
+        
+
+        let letterValue = letterValues[inputLetter] || 0;
+        
+        const cellMultiplier = GridArray[rowIndex][colIndex].Multi;
+        if (cellMultiplier === "doubleL") {
+          letterValue *= 2;
+        } else if (cellMultiplier === "triplel") {
+          letterValue *= 3;
+        }
+>>>>>>> 7f8913662112cbe1abf0515df7cb6e1b9257ed6f
 
         setLetters((prevLetters) => {
           const newLetters = prevLetters.map((row, rIdx) =>
@@ -345,7 +387,20 @@ console.log('Your Letters:', randomLetters);
           return newLetters;
         });
 
+        setInputLetters((prevInputLetters) => {
+          const newInputLetters = [...prevInputLetters, inputLetter];
+          console.log(newInputLetters.join(""));
+          return newInputLetters;
+        });
+
+        setLastPosition({ row: rowIndex, col: colIndex });
         setIsFirstInput(false);
+
+        setScore((prevScore) => {
+          const newScore = prevScore + letterValue;
+          console.log(`My Score: ${newScore}`);
+          return newScore;
+        }); 
       } else {
         alert("Please enter a valid letter (A-Z).");
       }
@@ -358,6 +413,7 @@ console.log('Your Letters:', randomLetters);
 
   return (
     <div className="flex flex-col w-[100%] h-[100%]">
+      <div className="p-4 text-xl">Score: {score}</div>
       {GridArray.map((grid, rowIndex) => (
         <div key={rowIndex}>
           <div className="flex">
