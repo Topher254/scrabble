@@ -338,7 +338,6 @@ const Play2 = () => {
                 }}
               >
                 {letters[rowIndex][colIndex]}
-                {console.log(letters[rowIndex][colIndex])}
                 
                 <span
                   className="text-[8px] flex text-white"
