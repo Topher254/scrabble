@@ -284,8 +284,7 @@ const Play2 = () => {
 <<<<<<< HEAD
     console.log(rowIndex,colIndex);
 =======
-    console.log(rowIndex, colIndex);
-    console.log((letters[rowIndex],[colIndex]));
+    
 >>>>>>> 3980147962b8a62cc76894753b4a2744cbaa6362
 
     if (isFirstInput && (rowIndex !== 7 || colIndex !== 7)) {
