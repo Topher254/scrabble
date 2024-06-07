@@ -275,37 +275,12 @@ const Play2 = () => {
     ],
   ];
 
-<<<<<<< HEAD
-  //random letters
- 
-  function Random_Letters(){
-    const Alphabetss = 'abcdefghijklmnopqrstuvwxyz'
-    let FinalChar = '';
-
-    for (let i = 0; i < 6; i++) {
-        const Id_random = Math.floor(Math.random() * Alphabetss.length)
-        FinalChar += Alphabetss.charAt(Id_random)
-    }
-    return FinalChar;
-}
-
-// Generate random letters
-const randomLetters = Random_Letters();
-console.log('Your Letters:', randomLetters);
-
-
-
-
-
-    ///adghfsssssss
-=======
   const letterValues = {
     A: 1, B: 3, C: 3, D: 2, E: 1, F: 4, G: 2,
     H: 4, I: 1, J: 8, K: 5, L: 1, M: 3, N: 1,
     O: 1, P: 3, Q: 10, R: 1, S: 1, T: 1, U: 1,
     V: 4, W: 4, X: 8, Y: 4, Z: 10
   };
->>>>>>> 7f8913662112cbe1abf0515df7cb6e1b9257ed6f
 
   const [letters, setLetters] = useState(Array(15).fill(Array(15).fill("")));
   const [inputLetters, setInputLetters] = useState([]);
@@ -314,20 +289,12 @@ console.log('Your Letters:', randomLetters);
   const [score, setScore] = useState(0);
 
   const getInput = (rowIndex, colIndex) => {
-<<<<<<< HEAD
-    
-=======
     console.log(rowIndex, colIndex);
->>>>>>> 7f8913662112cbe1abf0515df7cb6e1b9257ed6f
 
     if (isFirstInput && (rowIndex !== 7 || colIndex !== 7)) {
       alert("The first input must be at the center cell (7,7).");
       return;
     }
-<<<<<<< HEAD
-    
-    
-=======
 
     if (!isFirstInput) {
       const isValidMove = 
@@ -340,7 +307,6 @@ console.log('Your Letters:', randomLetters);
       }
     }
 
->>>>>>> 7f8913662112cbe1abf0515df7cb6e1b9257ed6f
     let inputLetter = prompt("Enter your letter (A-Z):");
     // Check if the entered letter is available among the random letters
       if (inputLetter && randomLetters.includes(inputLetter.toLowerCase())) {
