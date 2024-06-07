@@ -278,6 +278,8 @@ const Play2 = () => {
   const [letters, setLetters] = useState(Array(15).fill(Array(15).fill("")));
 
   const [isFirstInput, setIsFirstInput] = useState(true);
+  const [lastPosition, setLastPosition] = useState({ row: 7, col: 7 });
+
 
 
   const getInput = (rowIndex, colIndex) => {
@@ -288,6 +290,17 @@ const Play2 = () => {
       alert("The first input must be at the center cell (7,7).");
       return;
       
+    }
+
+    if (!isFirstInput) {
+      const isValidMove = 
+        (rowIndex === lastPosition.row && Math.abs(colIndex - lastPosition.col) === 1) || 
+        (colIndex === lastPosition.col && Math.abs(rowIndex - lastPosition.row) === 1);
+
+      if (!isValidMove) {
+        alert("You can only place the letter adjacent to the last letter (up, down, left, or right).");
+        return;
+      }
     }
     
     let inputLetter = prompt("Enter your letter (A-Z):");
@@ -303,7 +316,7 @@ const Play2 = () => {
           );
           return newLetters;
         });
-
+        setLastPosition({ row: rowIndex, col: colIndex });
         setIsFirstInput(false);
       } else {
         alert("Please enter a valid letter (A-Z).");
