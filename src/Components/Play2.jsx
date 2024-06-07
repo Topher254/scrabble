@@ -275,21 +275,25 @@ const Play2 = () => {
     ],
   ];
 
-  const [letters, setLetters] = useState(Array(15).fill(Array(15).fill("")));
+  const letterValues = {
+    A: 1, B: 3, C: 3, D: 2, E: 1, F: 4, G: 2,
+    H: 4, I: 1, J: 8, K: 5, L: 1, M: 3, N: 1,
+    O: 1, P: 3, Q: 10, R: 1, S: 1, T: 1, U: 1,
+    V: 4, W: 4, X: 8, Y: 4, Z: 10
+  };
 
+  const [letters, setLetters] = useState(Array(15).fill(Array(15).fill("")));
+  const [inputLetters, setInputLetters] = useState([]);
   const [isFirstInput, setIsFirstInput] = useState(true);
   const [lastPosition, setLastPosition] = useState({ row: 7, col: 7 });
-
-
+  const [score, setScore] = useState(0);
 
   const getInput = (rowIndex, colIndex) => {
     console.log(rowIndex, colIndex);
-    console.log((letters[rowIndex],[colIndex]));
 
     if (isFirstInput && (rowIndex !== 7 || colIndex !== 7)) {
       alert("The first input must be at the center cell (7,7).");
       return;
-      
     }
 
     if (!isFirstInput) {
@@ -302,12 +306,23 @@ const Play2 = () => {
         return;
       }
     }
-    
+
     let inputLetter = prompt("Enter your letter (A-Z):");
     if (inputLetter) {
       inputLetter = inputLetter.toUpperCase();
       if (inputLetter.length === 1 && inputLetter >= 'A' && inputLetter <= 'Z') {
-        console.log(inputLetter);
+        console.log(`${inputLetter}, ${letterValues[inputLetter]}`);
+        
+
+        let letterValue = letterValues[inputLetter] || 0;
+        
+        const cellMultiplier = GridArray[rowIndex][colIndex].Multi;
+        if (cellMultiplier === "doubleL") {
+          letterValue *= 2;
+        } else if (cellMultiplier === "triplel") {
+          letterValue *= 3;
+        }
+
         setLetters((prevLetters) => {
           const newLetters = prevLetters.map((row, rIdx) =>
             row.map((col, cIdx) =>
@@ -316,8 +331,21 @@ const Play2 = () => {
           );
           return newLetters;
         });
+
+        setInputLetters((prevInputLetters) => {
+          const newInputLetters = [...prevInputLetters, inputLetter];
+          console.log(newInputLetters.join(""));
+          return newInputLetters;
+        });
+
         setLastPosition({ row: rowIndex, col: colIndex });
         setIsFirstInput(false);
+
+        setScore((prevScore) => {
+          const newScore = prevScore + letterValue;
+          console.log(`My Score: ${newScore}`);
+          return newScore;
+        }); 
       } else {
         alert("Please enter a valid letter (A-Z).");
       }
@@ -326,6 +354,7 @@ const Play2 = () => {
 
   return (
     <div className="flex flex-col w-[100%] h-[100%]">
+      <div className="p-4 text-xl">Score: {score}</div>
       {GridArray.map((grid, rowIndex) => (
         <div key={rowIndex}>
           <div className="flex">
