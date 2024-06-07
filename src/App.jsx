@@ -12,11 +12,11 @@ function App() {
       <BrowserRouter>
         <Topbar />
           <Routes>
-          <Route path="/logged" element= {<Maingame />}/>
+          <Route path="/" element= {<Maingame />}/>
           <Route path="/signout" element={<SignUp/>}/>
           <Route path="/signin" element={<SignIn/>}/>
           <Route path="/about" element={<About/>}/>
-          <Route path="/" element={<About/>}/>
+          <Route path="/logged" element={<Maingame/>}/>
           
         </Routes>
         <Footer/>

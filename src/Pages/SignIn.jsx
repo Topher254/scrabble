@@ -7,7 +7,7 @@ const SignIn = () => {
   return (
     <div className='flex flex-col items-center justify-center h-screen '>
       <div className='w-[45em] p-8 bg-white shadow-md shadow-slate-500 rounded-md'>
-        <h1 className='text-xl text-green-600 font-semibold mb-4 items-center flex justify-center'>Sign Up</h1>
+        <h1 className='text-xl text-green-600 font-semibold mb-4 items-center flex justify-center'>Sign In</h1>
         <div className='flex'>
           <div className='w-1/2'>
             <img src={imej} alt="Profile" className='min-w-full h-auto '/>
