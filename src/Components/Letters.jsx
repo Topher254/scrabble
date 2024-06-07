@@ -11,7 +11,7 @@ const Letters = () => {
         }
         return FinalChar;
     }
-   console.log(Random_Letters())
+  //  console.log(Random_Letters())
 
 
     

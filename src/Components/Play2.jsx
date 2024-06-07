@@ -275,6 +275,29 @@ const Play2 = () => {
     ],
   ];
 
+  //random letters
+ 
+  function Random_Letters(){
+    const Alphabetss = 'abcdefghijklmnopqrstuvwxyz'
+    let FinalChar = '';
+
+    for (let i = 0; i < 6; i++) {
+        const Id_random = Math.floor(Math.random() * Alphabetss.length)
+        FinalChar += Alphabetss.charAt(Id_random)
+    }
+    return FinalChar;
+}
+
+// Generate random letters
+const randomLetters = Random_Letters();
+console.log('Your Letters:', randomLetters);
+
+
+
+
+
+    ///adghfsssssss
+
   const [letters, setLetters] = useState(Array(15).fill(Array(15).fill("")));
 
   const [isFirstInput, setIsFirstInput] = useState(true);
@@ -289,9 +312,19 @@ const Play2 = () => {
       
     }
     
+    
     let inputLetter = prompt("Enter your letter (A-Z):");
+    // Check if the entered letter is available among the random letters
+      if (inputLetter && randomLetters.includes(inputLetter.toLowerCase())) {
+        console.log(`${inputLetter} available `);
+      } else {
+        console.log(`${inputLetter}Use given letters`);
+      }
+
     if (inputLetter) {
       inputLetter = inputLetter.toUpperCase();
+      
+
       if (inputLetter.length === 1 && inputLetter >= 'A' && inputLetter <= 'Z') {
         console.log(inputLetter);
         //push the input letters to an array
@@ -318,6 +351,8 @@ const Play2 = () => {
       }
     }
   };
+
+  
 
  
 
