@@ -309,11 +309,7 @@ const Play2 = () => {
 
     let inputLetter = prompt("Enter your letter (A-Z):");
     // Check if the entered letter is available among the random letters
-      if (inputLetter && randomLetters.includes(inputLetter.toLowerCase())) {
-        console.log(`${inputLetter} available `);
-      } else {
-        console.log(`${inputLetter}Use given letters`);
-      }
+     
 
     if (inputLetter) {
       inputLetter = inputLetter.toUpperCase();
