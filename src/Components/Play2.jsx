@@ -362,8 +362,8 @@ const Play2 = () => {
  
 
   return (
-    <div className="flex flex-col w-[100%] h-[100%]">
-      <div className="p-4 text-xl">Score: {score}</div>
+    <div className="flex flex-col ">
+      {/*<div className="p-4 text-xl">Score: {score}</div>*/}
       {GridArray.map((grid, rowIndex) => (
         <div key={rowIndex}>
           <div className="flex">
@@ -371,7 +371,7 @@ const Play2 = () => {
               <p
                 onClick={() => getInput(rowIndex, colIndex)}
                 key={colIndex}
-                className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
+                className="h-[3.5em] w-[3.5em] bg-slate-300 border p-2 hover:cursor-pointer"
                 style={{
                   backgroundColor:
                     cell.Multi === "triplew"
