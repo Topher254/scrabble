@@ -36,9 +36,9 @@ const FirstDiv = () => {
                 </span>
               </li>
             </ul>
-            <h2 className="font-semibold text-xl py-[1em]">
+            <h2 className="font-semibold text-xl text-green-600 py-[1em]">
               Winner
-              <span className="text-[15px] min-w-[45px] p-1 bg-white text-green-600 ml-2">
+              <span className="text-[15px] min-w-[45px] p-1 bg-white text-green-400 ml-2">
                 Winner
               </span>
             </h2>
