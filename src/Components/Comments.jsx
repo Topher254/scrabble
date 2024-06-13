@@ -15,7 +15,7 @@ const Comments = () => {
       });
   }, []);
 
-  console.log(data)
+  // console.log(data)
 
   return (
     <div>

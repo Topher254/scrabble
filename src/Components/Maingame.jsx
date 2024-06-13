@@ -10,6 +10,7 @@ import FirstDiv from "./FirstDiv";
 import SecondDiv from "./SecondDiv";
 import Letters from "./Letters";
 import Comments from "./Comments";
+import Test from "./Test";
 
 const Maingame = () => {
   return (
@@ -17,6 +18,7 @@ const Maingame = () => {
       {/*playyy */}
       <div className="flex   ">
         <Play2 className="flex" />
+        
       </div>
 
       <div className="px-[1em] w-full rounded-md ">
