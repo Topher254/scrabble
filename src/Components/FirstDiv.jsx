@@ -1,7 +1,20 @@
-import React from "react";
-import imagee from "../assets/image.jpeg";
-import Letters from "./Letters";
+import React, { useEffect, useState } from "react";
 const FirstDiv = () => {
+  
+
+  const [Player, setPlayer]= useState([])
+
+  useEffect(() => {
+    fetch('http://localhost:3000/users')
+      .then((response) => response.json())
+      .then((Player) => {
+        setPlayer(Player)
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
   return (
     <div>
       <div className="   flex flex-col justify-evenly">
@@ -10,32 +23,13 @@ const FirstDiv = () => {
         <div className="shadow-md shadow-slate-300 p-[1em]">
           <h2 className="font-semibold p-2 text-xl text-green-600">Scores</h2>
           <div>
-            <ul className="pl-2">
-              <li className="flex items-center">
-                <img src={imagee} className="w-10 mr-2 rounded-full" />
-                Player1{" "}
-                <span className="pl-2">
-                  Score
-                  <a className="ml-1  p-2 bg-white text-green-600 ">56</a>
-                </span>
-              </li>
-              <li className="flex items-center">
-                <img src={imagee} className="w-10 mr-2 rounded-full" />
-                Player1{" "}
-                <span className="pl-2">
-                  Score
-                  <a className="ml-1  p-2 bg-white text-green-600 ">65</a>
-                </span>
-              </li>
-              <li className="flex items-center">
-                <img src={imagee} className="w-10 mr-2 rounded-full" />
-                Player1{" "}
-                <span className="pl-2">
-                  Score
-                  <a className="ml-1  p-2 bg-white text-green-600 ">32</a>
-                </span>
-              </li>
-            </ul>
+          {Player.map((d)=>(
+            <div key={d.id}>
+            <h5 className="font-semibold ">{d.username} : <span className="text-green-700 font-mono italic text-sm">{d.score}</span></h5>
+            
+            </div>
+          ))}
+             
             <h2 className="font-semibold text-xl text-green-600 py-[1em]">
               Winner
               <span className="text-[15px] min-w-[45px] p-1 bg-white text-green-400 ml-2">
