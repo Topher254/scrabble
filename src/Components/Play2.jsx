@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
+// import en from dictionary-en
+import CheckWord from 'check-word';
 
 const Play2 = () => {
   const GridArray = [
@@ -292,7 +294,7 @@ const Play2 = () => {
     console.log(rowIndex, colIndex);
 
     if (isFirstInput && (rowIndex !== 7 || colIndex !== 7)) {
-      alert("The first input must be at the center cell (7,7).");
+      alert("The first input must be at the star cell.");
       return;
     }
 
@@ -327,7 +329,7 @@ const Play2 = () => {
         } else if (cellMultiplier === "triplel") {
           letterValue *= 3;
         }
-
+// make the word right here
         setLetters((prevLetters) => {
           const newLetters = prevLetters.map((row, rIdx) =>
             row.map((col, cIdx) =>
@@ -339,7 +341,12 @@ const Play2 = () => {
 
         setInputLetters((prevInputLetters) => {
           const newInputLetters = [...prevInputLetters, inputLetter];
-          console.log(newInputLetters.join(""));
+          let myword = newInputLetters.join("");
+          // here,i'm displaying if the word is availble in the dictionary
+          isAvailable !== null &&(
+          console.log('Word Available'));
+          console.log(myword)
+
           return newInputLetters;
         });
 
@@ -360,8 +367,30 @@ const Play2 = () => {
   
 // console.log(letters[rowIndex][colIndex])
  
+//checking the words
+//I'm using checkword package to check if words are in the disctionary
+  const [word,setWord] = useState('');
+  const [isAvailable,setisAvailable] = useState(null);
 
-const [My_word, setMy_word] = useState([]);
+  const handleWord = (e) =>{
+    setWord(e.target.value)
+  };
+
+  const handleWordSubmit = (e)=>{
+    e.preventDefault();
+    if(word.trim()!==''){
+      const valid = word.check(word.trim());
+      setisAvailable(valid);
+    }
+  };
+  // const words = CheckWord('en');
+  
+  //   const wordToCheck = 'dog'; // The static word you want to check
+  //   console.log(words.check(wordToCheck))
+
+
+
+
 
 
 
@@ -370,20 +399,21 @@ const [My_word, setMy_word] = useState([]);
             {/*<div className="p-4 text-xl">Score: {score}</div>*/}
             {GridArray.map((grid, rowIndex) => (
                 <div key={rowIndex}>
-                    <div className="flex">
+                    <div className="flex"
+                    
+                    
+                    >
                         {grid.map((cell, colIndex) => {
-                            let Array_letters = letters[rowIndex][colIndex]; 
-                            // setMy_word(prev => [...prev, Array_letters]);
+                            
                             
 
-                            console.log(Array_letters)
-                           
-                            console.log(My_word)
-
                             return (
+                             
                                 <p
                                     onClick={() => getInput(rowIndex, colIndex)}
                                     key={colIndex}
+                                    value={word}
+                                    onChange={handleWordSubmit}
                                     className="h-[3.5em] w-[3.5em] bg-slate-300 border p-2 hover:cursor-pointer"
                                     style={{
                                         backgroundColor:
@@ -399,8 +429,10 @@ const [My_word, setMy_word] = useState([]);
                                                 ? "MediumVioletRed"
                                                 : "",
                                     }}
-                                >
-                                    {letters[rowIndex][colIndex]}
+                                > 
+                                {
+                                    letters[rowIndex][colIndex]
+                                  }
                                     <span
                                         className="text-[8px] flex text-white"
                                         style={{
@@ -419,6 +451,7 @@ const [My_word, setMy_word] = useState([]);
                                         </span>
                                     </span>
                                 </p>
+                              
                             );
                         })}
                     </div>
