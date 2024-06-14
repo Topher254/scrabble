@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
-// import en from dictionary-en
-import CheckWord from 'check-word';
 
 const Play2 = () => {
   const GridArray = [
@@ -364,97 +362,52 @@ const Play2 = () => {
     }
   };
 
-  
-// console.log(letters[rowIndex][colIndex])
- 
-//checking the words
-//I'm using checkword package to check if words are in the disctionary
-  const [word,setWord] = useState('');
-  const [isAvailable,setisAvailable] = useState(null);
-
-  const handleWord = (e) =>{
-    setWord(e.target.value)
-  };
-
-  const handleWordSubmit = (e)=>{
-    e.preventDefault();
-    if(word.trim()!==''){
-      const valid = word.check(word.trim());
-      setisAvailable(valid);
-    }
-  };
-  // const words = CheckWord('en');
-  
-  //   const wordToCheck = 'dog'; // The static word you want to check
-  //   console.log(words.check(wordToCheck))
-
-
-
-
-
-
-
-    return (
-        <div className="flex flex-col">
-            {/*<div className="p-4 text-xl">Score: {score}</div>*/}
-            {GridArray.map((grid, rowIndex) => (
-                <div key={rowIndex}>
-                    <div className="flex"
-                    
-                    
-                    >
-                        {grid.map((cell, colIndex) => {
-                            
-                            
-
-                            return (
-                             
-                                <p
-                                    onClick={() => getInput(rowIndex, colIndex)}
-                                    key={colIndex}
-                                    value={word}
-                                    onChange={handleWordSubmit}
-                                    className="h-[3.5em] w-[3.5em] bg-slate-300 border p-2 hover:cursor-pointer"
-                                    style={{
-                                        backgroundColor:
-                                            cell.Multi === "triplew"
-                                                ? "Tomato"
-                                                : cell.Multi === "doubleL"
-                                                ? "DeepSkyBlue"
-                                                : cell.Multi === "triplel"
-                                                ? "blue"
-                                                : cell.Multi === "doublew"
-                                                ? "DeepPink"
-                                                : cell.Multi === "_"
-                                                ? "MediumVioletRed"
-                                                : "",
-                                    }}
-                                > 
-                                {
-                                    letters[rowIndex][colIndex]
-                                  }
-                                    <span
-                                        className="text-[8px] flex text-white"
-                                        style={{
-                                            visibility: cell.Multi === "zero" ? "hidden" : "",
-                                            color: cell.Multi === "_" ? "black" : "",
-                                        }}
-                                    >
-                                        {cell.Multi}
-                                        <span
-                                            className="flex flex-row"
-                                            style={{
-                                                visibility: cell.Multi !== "_" ? "hidden" : "",
-                                            }}
-                                        >
-                                            <FaStar size={25} />
-                                        </span>
-                                    </span>
-                                </p>
-                              
-                            );
-                        })}
-                    </div>
+  return (
+    <div className="flex flex-col">
+      <div className="p-4 text-xl">Score: {score}</div>
+      <div className="p-4 text-xl">Random Letters: {randomLetters.join(", ")}</div>
+      {GridArray.map((grid, rowIndex) => (
+        <div key={rowIndex}>
+          <div className="flex">
+            {grid.map((cell, colIndex) => (
+              <div key={colIndex} className="relative">
+                <input
+                  type="text"
+                  maxLength={1}
+                  onKeyDown={(e) => handleKeyPress(e, rowIndex, colIndex)}
+                  className="h-[3.5em] w-[3.5em] bg-slate-300 border p-2 text-center"
+                  style={{
+                    backgroundColor:
+                      cell.Multi === "triplew"
+                        ? "Tomato"
+                        : cell.Multi === "doubleL"
+                        ? "DeepSkyBlue"
+                        : cell.Multi === "triplel"
+                        ? "blue"
+                        : cell.Multi === "doublew"
+                        ? "DeepPink"
+                        : cell.Multi === "_"
+                        ? "MediumVioletRed"
+                        : "",
+                  }}
+                  tabIndex={0}
+                />
+                <div
+                  className="text-[8px] absolute top-0 right-0 text-white"
+                  style={{
+                    visibility: cell.Multi === "zero" ? "hidden" : "",
+                    color: cell.Multi === "_" ? "black" : "",
+                  }}
+                >
+                  {cell.Multi}
+                  <span
+                    className="flex flex-row"
+                    style={{
+                      visibility: cell.Multi !== "_" ? "hidden" : "",
+                    }}
+                  >
+                    <FaStar size={25} />
+                  </span>
                 </div>
             ))}
         </div>
