@@ -1,10 +1,32 @@
 {
-    "words":[
-        {"word":"hello","id":1},
-        {"word":"hi","id":2},
-        {"word":"mum","id":3},
-        {"word":"dad","id":4},
-        {"word":"hey","id":5},
-        {"word":"helloing","id":6}
+    "users": [
+      {
+        "id": 1,
+        "comment": "noma msee",
+        "username": "julie@",
+        "number": "08100000000",
+        "score": "23"
+      },
+      {
+        "id": 2,
+        "comment": "yooh",
+        "username": "jameswi",
+        "number": "08111111111",
+        "score": "26"
+      },
+      {
+        "id": 3,
+        "comment": "Finish Him",
+        "username": "ahmedalm",
+        "number": "09022222222",
+        "score": "43"
+      },
+      {
+        "id": 4,
+        "comment": "hehee",
+        "username": "gracefum",
+        "number": "09033333333",
+        "score": "53"
+      }
     ]
-}
+  }

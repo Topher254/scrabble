@@ -1,6 +1,7 @@
 import React from "react";
 import { Navbar_components } from "../Contraints";
 import { Link } from "react-router-dom";
+import { FaAngleDoubleDown } from "react-icons/fa";
 
 const Topbar = () => {
   return (
@@ -18,6 +19,9 @@ const Topbar = () => {
             </Link> 
             </ul>
         ))}
+      </div>
+      <div>
+      <button className="bg-white text-green-600 px-4 py-1 rounded-md flex justify-center items-center">Menu<FaAngleDoubleDown className="ml-2"/></button>
       </div>
     </div>
   );

@@ -11,13 +11,21 @@ const Letters = () => {
         }
         return FinalChar;
     }
-   console.log(Random_Letters())
+  //  console.log(Random_Letters())
 
 
     
   return (
     <div>
-      <p>{Random_Letters()}</p>
+    <div className='shadow-md shadow-slate-300 my-2'>
+          <h1 className="font-semibold p-2 text-xl text-green-600">Letters</h1>
+          <div className="pl-2 py-2">
+            {/*Display of the random letters */}
+            <p>{Random_Letters()}</p>
+            
+          </div>
+        </div>
+      
      
     </div>
   )

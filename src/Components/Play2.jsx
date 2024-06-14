@@ -308,8 +308,13 @@ const Play2 = () => {
     }
 
     let inputLetter = prompt("Enter your letter (A-Z):");
+    // Check if the entered letter is available among the random letters
+     
+
     if (inputLetter) {
       inputLetter = inputLetter.toUpperCase();
+      
+
       if (inputLetter.length === 1 && inputLetter >= 'A' && inputLetter <= 'Z') {
         console.log(`${inputLetter}, ${letterValues[inputLetter]}`);
         
@@ -352,57 +357,75 @@ const Play2 = () => {
     }
   };
 
-  return (
-    <div className="flex flex-col w-[100%] h-[100%]">
-      <div className="p-4 text-xl">Score: {score}</div>
-      {GridArray.map((grid, rowIndex) => (
-        <div key={rowIndex}>
-          <div className="flex">
-            {grid.map((cell, colIndex) => (
-              <p
-                onClick={() => getInput(rowIndex, colIndex)}
-                key={colIndex}
-                className="h-[3em] w-[3em] bg-slate-300 border p-2 hover:cursor-pointer"
-                style={{
-                  backgroundColor:
-                    cell.Multi === "triplew"
-                      ? "Tomato"
-                      : cell.Multi === "doubleL"
-                      ? "DeepSkyBlue"
-                      : cell.Multi === "triplel"
-                      ? "blue"
-                      : cell.Multi === "doublew"
-                      ? "DeepPink"
-                      : cell.Multi === "_"
-                      ? "MediumVioletRed"
-                      : "",
-                }}
-              >
-                {letters[rowIndex][colIndex]}
-                <span
-                  className="text-[8px] flex text-white"
-                  style={{
-                    visibility: cell.Multi === "zero" ? "hidden" : "",
-                    color: cell.Multi === "_" ? "black" : "",
-                  }}
-                >
-                  {cell.Multi}
-                  <span
-                    className="flex flex-row"
-                    style={{
-                      visibility: cell.Multi !== "_" ? "hidden" : "",
-                    }}
-                  >
-                    <FaStar size={25} />
-                  </span>
-                </span>
-              </p>
+  
+// console.log(letters[rowIndex][colIndex])
+ 
+
+const [My_word, setMy_word] = useState([]);
+
+
+
+    return (
+        <div className="flex flex-col">
+            {/*<div className="p-4 text-xl">Score: {score}</div>*/}
+            {GridArray.map((grid, rowIndex) => (
+                <div key={rowIndex}>
+                    <div className="flex">
+                        {grid.map((cell, colIndex) => {
+                            let Array_letters = letters[rowIndex][colIndex]; 
+                            // setMy_word(prev => [...prev, Array_letters]);
+                            
+
+                            console.log(Array_letters)
+                           
+                            console.log(My_word)
+
+                            return (
+                                <p
+                                    onClick={() => getInput(rowIndex, colIndex)}
+                                    key={colIndex}
+                                    className="h-[3.5em] w-[3.5em] bg-slate-300 border p-2 hover:cursor-pointer"
+                                    style={{
+                                        backgroundColor:
+                                            cell.Multi === "triplew"
+                                                ? "Tomato"
+                                                : cell.Multi === "doubleL"
+                                                ? "DeepSkyBlue"
+                                                : cell.Multi === "triplel"
+                                                ? "blue"
+                                                : cell.Multi === "doublew"
+                                                ? "DeepPink"
+                                                : cell.Multi === "_"
+                                                ? "MediumVioletRed"
+                                                : "",
+                                    }}
+                                >
+                                    {letters[rowIndex][colIndex]}
+                                    <span
+                                        className="text-[8px] flex text-white"
+                                        style={{
+                                            visibility: cell.Multi === "zero" ? "hidden" : "",
+                                            color: cell.Multi === "_" ? "black" : "",
+                                        }}
+                                    >
+                                        {cell.Multi}
+                                        <span
+                                            className="flex flex-row"
+                                            style={{
+                                                visibility: cell.Multi !== "_" ? "hidden" : "",
+                                            }}
+                                        >
+                                            <FaStar size={25} />
+                                        </span>
+                                    </span>
+                                </p>
+                            );
+                        })}
+                    </div>
+                </div>
             ))}
-          </div>
         </div>
-      ))}
-    </div>
-  );
+    );
 };
 
 export default Play2;
