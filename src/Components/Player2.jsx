@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 
@@ -306,7 +305,7 @@ const Play2 = () => {
   };
 
   const handleKeyPress = (e, rowIndex, colIndex) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Shift') {
       let inputLetter = e.target.value.toUpperCase(); // Convert to uppercase
 
       if (!randomLetters.includes(inputLetter)) {
@@ -370,64 +369,87 @@ const Play2 = () => {
   };
 
   return (
-    <div className="flex flex-col">
-      <div className="p-4 text-xl">Score: {score}</div>
-      <div className="p-4 text-xl">Random Letters: {randomLetters.join(", ")}</div>
-      {GridArray.map((grid, rowIndex) => (
-        <div key={rowIndex}>
-          <div className="flex">
-            {grid.map((cell, colIndex) => (
-              <div key={colIndex} className="relative">
-                <input
-                  type="text"
-                  maxLength={1}
-                  onKeyDown={(e) => handleKeyPress(e, rowIndex, colIndex)}
-                  className="h-[3.5em] w-[3.5em] bg-slate-300 border p-2 text-center"
-                  style={{
-                    backgroundColor:
-                      cell.Multi === "triplew"
-                        ? "Tomato"
-                        : cell.Multi === "doubleL"
-                        ? "DeepSkyBlue"
-                        : cell.Multi === "triplel"
-                        ? "blue"
-                        : cell.Multi === "doublew"
-                        ? "DeepPink"
-                        : cell.Multi === "_"
-                        ? "MediumVioletRed"
-                        : "",
-                  }}
-                  tabIndex={0}
-                />
-                <div
-                  className="text-[8px] absolute top-0 right-0 text-white"
-                  style={{
-                    visibility: cell.Multi === "zero" ? "hidden" : "",
-                    color: cell.Multi === "_" ? "black" : "",
-                  }}
-                >
-                  {cell.Multi}
-                  <span
-                    className="flex flex-row"
+    <div className="flex">
+      {/* Game Board */}
+      <div className="flex flex-col">
+        <div className="p-4 text-xl">Score: {score}</div>
+        {GridArray.map((grid, rowIndex) => (
+          <div key={rowIndex}>
+            <div className="flex">
+              {grid.map((cell, colIndex) => (
+                <div key={colIndex} className="relative">
+                  <input
+                    type="text"
+                    maxLength={1}
+                    onKeyDown={(e) => handleKeyPress(e, rowIndex, colIndex)}
+                    className="h-[3.5em] w-[3.5em] bg-slate-300 border p-2 text-center"
                     style={{
-                      visibility: cell.Multi !== "_" ? "hidden" : "",
+                      backgroundColor:
+                        cell.Multi === "triplew"
+                          ? "Tomato"
+                          : cell.Multi === "doubleL"
+                          ? "DeepSkyBlue"
+                          : cell.Multi === "triplel"
+                          ? "blue"
+                          : cell.Multi === "doublew"
+                          ? "DeepPink"
+                          : cell.Multi === "_"
+                          ? "MediumVioletRed"
+                          : "",
+                    }}
+                    tabIndex={0}
+                  />
+                  <div
+                    className="text-[8px] absolute top-0 right-0 text-white"
+                    style={{
+                      visibility: cell.Multi === "zero" ? "hidden" : "",
+                      color: cell.Multi === "_" ? "black" : "",
                     }}
                   >
-                    <FaStar size={25} />
-                  </span>
-                </div>
-                {/* Display input letter on the grid */}
-                {letters[rowIndex][colIndex] && (
-                  <div className="absolute inset-0 flex items-center justify-center text-xl font-bold text-black">
-                    {letters[rowIndex][colIndex]}
+                    {cell.Multi}
+                    <span
+                      className="flex flex-row"
+                      style={{
+                        visibility: cell.Multi !== "_" ? "hidden" : "",
+                      }}
+                    >
+                      <FaStar size={25} />
+                    </span>
                   </div>
-                )}
+                  {/* Display input letter on the grid */}
+                  {letters[rowIndex][colIndex] && (
+                    <div className="absolute inset-0 flex items-center justify-center text-xl font-bold text-black">
+                      {letters[rowIndex][colIndex]}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+    
+      </div>
+
+      {/* Side Panel for Random Letters */}
+      <div className="flex flex-col bg-gray-200 p-4 ml-4">
+        <div className="text-xl font-bold mb-4">Game Info</div>
+        <div className="flex flex-col">
+          <div className="text-lg mb-2">Score: {score}</div>
+          <div className="text-lg mb-2">Random Letters:</div>
+          <div className="flex flex-wrap">
+            {randomLetters.map((letter, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-2 mb-2 text-2xl"
+              >
+                {letter}
               </div>
             ))}
           </div>
         </div>
-      ))}
+      </div>
     </div>
+    
   );
 };
 
