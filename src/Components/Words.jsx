@@ -1,26 +1,60 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Words = ({ inputLetters, setInputLetters }) => {
-  const [words, setWords] = useState([]);
+const Words = ({ inputLetters, GridArray, letterValues }) => {
+  // Function to calculate the score
+  const calculateScore = () => {
+    let totalScore = 0;
+    let wordMultiplier = 1;
 
-  const handleEnterPress = (e) => {
-    if (e.key === "Enter") {
-      const word = inputLetters.join("");
-      setWords((prevWords) => [...prevWords, word]);
-      setInputLetters([]);
+    inputLetters.forEach(({ letter, row, col }) => {
+      let letterScore = letterValues[letter] || 0;
+      const cell = GridArray[row][col];
+
+      if (cell.Multi === "doubleL") {
+        letterScore *= 2;
+      } else if (cell.Multi === "triplel") {
+        letterScore *= 3;
+      } else if (cell.Multi === "doublew") {
+        wordMultiplier *= 2;
+      } else if (cell.Multi === "triplew") {
+        wordMultiplier *= 3;
+      }
+
+      totalScore += letterScore;
+    });
+
+    return totalScore * wordMultiplier;
+  };
+
+  // Function to construct the word
+  const constructWord = () => {
+    if (inputLetters.length === 0) return "";
+
+    // Assuming a horizontal word (same row), sort by column index
+    const sortedLetters = inputLetters.sort((a, b) => a.col - b.col);
+    
+    // Check if it's a vertical word (same column), sort by row index
+    const isVertical = sortedLetters.every(({ col }, i, arr) => col === arr[0].col);
+
+    if (isVertical) {
+      sortedLetters.sort((a, b) => a.row - b.row);
     }
+
+    return sortedLetters.map(({ letter }) => letter).join("");
   };
 
   return (
-    <div className="mt-4">
-      <div className="text-lg font-bold mb-2">Formed Words:</div>
-      <div className="flex flex-wrap gap-2">
-        {words.map((word, index) => (
+    <div>
+      <div className="text-lg font-bold mb-2">Score: {calculateScore()}</div>
+      <div className="text-lg font-bold mb-2">Word: {constructWord()}</div>
+      <div className="text-lg font-bold mb-2">Input Letters:</div>
+      <div className="flex flex-wrap gap-2 mb-4">
+        {inputLetters.map(({ letter }, index) => (
           <div
             key={index}
             className="bg-gray-200 py-2 px-4 rounded-md text-lg font-bold"
           >
-            {word}
+            {letter}
           </div>
         ))}
       </div>

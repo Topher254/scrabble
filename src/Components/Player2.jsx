@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
+import Words from "./Words";
 
 const Play2 = () => {
   const GridArray = [
@@ -283,12 +284,11 @@ const Play2 = () => {
     V: 4, W: 4, X: 8, Y: 4, Z: 10
   };
 
-  const [letters, setLetters] = useState(Array(15).fill().map(() => Array(15).fill("")));
+  const [boardLetters, setBoardLetters] = useState(Array(15).fill().map(() => Array(15).fill(""))); 
   const [inputLetters, setInputLetters] = useState([]);
+  const [randomLetters, setRandomLetters] = useState([]);
   const [isFirstInput, setIsFirstInput] = useState(true);
   const [lastPosition, setLastPosition] = useState({ row: 7, col: 7 });
-  const [score, setScore] = useState(0);
-  const [randomLetters, setRandomLetters] = useState([]);
 
   useEffect(() => {
     generateRandomLetters();
@@ -305,8 +305,8 @@ const Play2 = () => {
   };
 
   const handleKeyPress = (e, rowIndex, colIndex) => {
-    if (e.key === 'Shift') {
-      let inputLetter = e.target.value.toUpperCase(); // Convert to uppercase
+    if (e.key === 'Enter') {
+      let inputLetter = e.target.value.toUpperCase();
 
       if (!randomLetters.includes(inputLetter)) {
         alert("You can only enter the generated random letters.");
@@ -332,37 +332,19 @@ const Play2 = () => {
         }
       }
 
-      let letterValue = letterValues[inputLetter] || 0;
-      const cellMultiplier = GridArray[rowIndex][colIndex].Multi;
-      if (cellMultiplier === "doubleL") {
-        letterValue *= 2;
-      } else if (cellMultiplier === "triplel") {
-        letterValue *= 3;
-      }
-
-      setLetters((prevLetters) => {
-        const newLetters = prevLetters.map((row, rIdx) =>
+      setBoardLetters((prevBoardLetters) => {
+        const newBoardLetters = prevBoardLetters.map((row, rIdx) =>
           row.map((col, cIdx) =>
             rowIndex === rIdx && colIndex === cIdx ? inputLetter : col
           )
         );
-        return newLetters;
+        return newBoardLetters;
       });
 
-      setInputLetters((prevInputLetters) => {
-        const newInputLetters = [...prevInputLetters, inputLetter];
-        console.log(newInputLetters.join(""));
-        return newInputLetters;
-      });
+      setInputLetters((prevInputLetters) => [...prevInputLetters, { letter: inputLetter, row: rowIndex, col: colIndex }]);
 
       setLastPosition({ row: rowIndex, col: colIndex });
       setIsFirstInput(false);
-
-      setScore((prevScore) => {
-        const newScore = prevScore + letterValue;
-        console.log(`My Score: ${newScore}`);
-        return newScore;
-      });
 
       e.target.value = "";
     }
@@ -370,9 +352,7 @@ const Play2 = () => {
 
   return (
     <div className="flex">
-      {/* Game Board */}
       <div className="flex flex-col">
-        <div className="p-4 text-xl">Score: {score}</div>
         {GridArray.map((grid, rowIndex) => (
           <div key={rowIndex}>
             <div className="flex">
@@ -416,10 +396,9 @@ const Play2 = () => {
                       <FaStar size={25} />
                     </span>
                   </div>
-                  {/* Display input letter on the grid */}
-                  {letters[rowIndex][colIndex] && (
+                  {boardLetters[rowIndex][colIndex] && (
                     <div className="absolute inset-0 flex items-center justify-center text-xl font-bold text-black">
-                      {letters[rowIndex][colIndex]}
+                      {boardLetters[rowIndex][colIndex]}
                     </div>
                   )}
                 </div>
@@ -427,29 +406,24 @@ const Play2 = () => {
             </div>
           </div>
         ))}
-    
       </div>
 
-      {/* Side Panel for Random Letters */}
       <div className="flex flex-col bg-gray-200 p-4 ml-4">
         <div className="text-xl font-bold mb-4">Game Info</div>
-        <div className="flex flex-col">
-          <div className="text-lg mb-2">Score: {score}</div>
-          <div className="text-lg mb-2">Random Letters:</div>
-          <div className="flex flex-wrap">
-            {randomLetters.map((letter, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center h-12 w-12 bg-blue-500 text-white rounded-full mr-2 mb-2 text-2xl"
-              >
-                {letter}
-              </div>
-            ))}
-          </div>
+        <div className="text-lg font-bold mb-2">Random Letters:</div>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {randomLetters.map((letter, index) => (
+            <div
+              key={index}
+              className="bg-gray-200 py-2 px-4 rounded-md text-lg font-bold"
+            >
+              {letter}
+            </div>
+          ))}
         </div>
+        <Words inputLetters={inputLetters} GridArray={GridArray} letterValues={letterValues} />
       </div>
     </div>
-    
   );
 };
 
