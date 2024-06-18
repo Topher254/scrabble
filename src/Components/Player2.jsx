@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import Words from "./Words";
 import { checkWord } from "./wordCheckAPI";
+import FirstDiv from "./FirstDiv";
+import SecondDiv from "./SecondDiv";
+import Letters from "./Letters";
+import Comments from "./Comments";
 
 const Play2 = () => {
   const GridArray = [
@@ -434,20 +438,28 @@ const Play2 = () => {
           </div>
         ))}
       </div>
+      <div>
 
-      <div className="flex flex-col bg-gray-200 p-4 ml-4">
-        <div className="text-lg font-bold mb-2">Random Letters:</div>
+      <div className="flex flex-col shadow-md shadow-slate-200 mx-[1em] p-2 ml-4">
+        <div className="text-green-600 font-bold mb-2">Random Letters:</div>
         <div className="flex flex-wrap gap-2 mb-4">
           {randomLetters.map((letter, index) => (
             <div
               key={index}
-              className="bg-gray-200 py-2 px-4 rounded-md text-lg font-bold"
+              className="bg-green-200 py-2 px-4 rounded-md text-xl italic font-bold"
             >
               {letter}
             </div>
           ))}
         </div>
         <Words inputLetters={inputLetters} GridArray={GridArray} letterValues={letterValues} />
+      </div>  <div className="px-[1em] w-full rounded-md">
+        <div>
+          <FirstDiv className="py-2" />
+          <SecondDiv className="py-2" />
+          <Comments className="py-2" />
+        </div>
+      </div>
       </div>
     </div>
   );

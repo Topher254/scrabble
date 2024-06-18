@@ -45,8 +45,8 @@ const Words = ({ inputLetters, GridArray, letterValues }) => {
 
   return (
     <div>
-      <div className="text-lg font-bold mb-2">Score: {calculateScore()}</div>
-      <div className="text-lg font-bold mb-2">Word: {constructWord()}</div>
+      <div className="text-lg text-green-600 font-bold mb-2">Score:<span className="text-indigo-700 ml-1">{calculateScore()}</span> </div>
+      <div className="text-lg font-bold mb-2 text-green-600 ">Word: <span className="text-indigo-700 ml-1">{constructWord()}</span></div>
     </div>
   );
 };

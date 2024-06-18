@@ -1,9 +1,6 @@
 import React from "react";
 import Play2 from "./Player2";
-import FirstDiv from "./FirstDiv";
-import SecondDiv from "./SecondDiv";
-import Letters from "./Letters";
-import Comments from "./Comments";
+
 
 
 const Maingame = () => {
@@ -13,14 +10,7 @@ const Maingame = () => {
         <Play2 className="flex" />
       </div>
 
-      <div className="px-[1em] w-full rounded-md">
-        <div>
-          <Letters className="py-2" />
-          <FirstDiv className="py-2" />
-          <SecondDiv className="py-2" />
-          <Comments className="py-2" />
-        </div>
-      </div>
+    
     </div>
   );
 };
