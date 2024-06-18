@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import Words from "./Words";
+import { checkWord } from "./wordCheckAPI";
 
 const Play2 = () => {
   const GridArray = [
@@ -284,7 +285,7 @@ const Play2 = () => {
     V: 4, W: 4, X: 8, Y: 4, Z: 10
   };
 
-  const [boardLetters, setBoardLetters] = useState(Array(15).fill().map(() => Array(15).fill(""))); 
+  const [boardLetters, setBoardLetters] = useState(Array(15).fill().map(() => Array(15).fill("")));
   const [inputLetters, setInputLetters] = useState([]);
   const [randomLetters, setRandomLetters] = useState([]);
   const [isFirstInput, setIsFirstInput] = useState(true);
@@ -304,7 +305,7 @@ const Play2 = () => {
     setRandomLetters(letters);
   };
 
-  const handleKeyPress = (e, rowIndex, colIndex) => {
+  const handleKeyPress = async (e, rowIndex, colIndex) => {
     if (e.key === 'Enter') {
       let inputLetter = e.target.value.toUpperCase();
 
@@ -347,7 +348,33 @@ const Play2 = () => {
       setIsFirstInput(false);
 
       e.target.value = "";
+    } else if (e.key === 'Shift') {
+      const word = constructWord();
+      if (word) {
+        const result = await checkWord(word);
+        if (result.exists) {
+          alert(`The word "${word}" exists in the English dictionary.`);
+        } else {
+          alert(`The word "${word}" does not exist in the English dictionary.`);
+        }
+      } else {
+        alert("No word to check.");
+      }
     }
+  };
+
+  const constructWord = () => {
+    if (inputLetters.length === 0) return "";
+
+    const sortedLetters = inputLetters.sort((a, b) => a.col - b.col);
+
+    const isVertical = sortedLetters.every(({ col }, i, arr) => col === arr[0].col);
+
+    if (isVertical) {
+      sortedLetters.sort((a, b) => a.row - b.row);
+    }
+
+    return sortedLetters.map(({ letter }) => letter).join("");
   };
 
   return (

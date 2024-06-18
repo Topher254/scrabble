@@ -47,17 +47,6 @@ const Words = ({ inputLetters, GridArray, letterValues }) => {
     <div>
       <div className="text-lg font-bold mb-2">Score: {calculateScore()}</div>
       <div className="text-lg font-bold mb-2">Word: {constructWord()}</div>
-      <div className="text-lg font-bold mb-2">Input Letters:</div>
-      <div className="flex flex-wrap gap-2 mb-4">
-        {inputLetters.map(({ letter }, index) => (
-          <div
-            key={index}
-            className="bg-gray-200 py-2 px-4 rounded-md text-lg font-bold"
-          >
-            {letter}
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
