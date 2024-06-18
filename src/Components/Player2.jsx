@@ -298,7 +298,7 @@ const Play2 = () => {
   const generateRandomLetters = () => {
     const Alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let letters = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 7; i++) {
       const randomIndex = Math.floor(Math.random() * Alphabets.length);
       letters.push(Alphabets.charAt(randomIndex));
     }
