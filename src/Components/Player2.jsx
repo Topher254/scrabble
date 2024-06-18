@@ -436,7 +436,6 @@ const Play2 = () => {
       </div>
 
       <div className="flex flex-col bg-gray-200 p-4 ml-4">
-        <div className="text-xl font-bold mb-4">Game Info</div>
         <div className="text-lg font-bold mb-2">Random Letters:</div>
         <div className="flex flex-wrap gap-2 mb-4">
           {randomLetters.map((letter, index) => (
