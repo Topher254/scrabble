@@ -1,50 +1,70 @@
-import React, { useEffect, useState } from "react";
-import { FaPaperPlane } from "react-icons/fa";
+import React, { useState } from 'react';
+import { BiPaperPlane } from 'react-icons/bi';
+import { FaPaperPlane } from 'react-icons/fa';
+
+
+const dummycomments = [
+  {
+    id: 1,
+    userName: "Topher",
+    comment: "Mkoje"
+  },
+  {
+    id: 2,
+    userName: "Ron",
+    comment: "Fty"
+  },
+  {
+    id: 3,
+    userName: "Sam",
+    comment: "Nani mnoma ?"
+  }
+];
 
 const Comments = () => {
-  const [data, setData]= useState([])
+  const [userComment, setUserComment] = useState(dummycomments);
+  const [commentbody, setCommentBody] = useState('');
 
-  useEffect(() => {
-    fetch('http://localhost:3000/users')
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data)
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
-  }, []);
+// avoiding empty comments
 
-  // console.log(data)
+  const onComment = () => {
+    if (!commentbody) {
+      return; 
+    }
+
+    const newComment = {
+      id: userComment.length + [-1],
+      userName: "New User", 
+      comment: commentbody
+    };
+
+    setUserComment((prevComments) => [newComment, ...prevComments]);
+    //set it back to empty
+    setCommentBody('');
+  };
 
   return (
-    <div>
-      <div className="shadow-md shadow-slate-300 p-[1em]">
-        <h1 className="font-semibold p-2 text-green-600">Let's Chat</h1>
-        <div className="pl-2">
-        
-          
-        {data.map((d)=>(
-          <div key={d.id}>
-          <h5 className="font-semibold ">{d.username}:<span className="italic text-green-700">{d.comment}</span></h5>
-          
+    <div className='shadow-md shadow-slate-300 py-[1em] px-[1em] '>
+      <p className='text-xl text-green-600 font-semibold'>Let's Chat</p>
+      <div>
+        {userComment.map((com) => (
+          <div key={com.id}>
+            <p className='text-green-900 font-mono'>{com.userName}:<span className='text-green-700 italic'> {com.comment}</span></p>
           </div>
         ))}
-        </div>
-        <div className="my-2 flex justify-center items-center">
-          <label className="mr-2 font-semibold text-sm">
-            Comment:
-          </label>
-          <input
-            type="text"
-            name="username"
-            className="w-full bg-slate-200 p-1 outline-none text-green-700"
-            
-          />
-          <a>
-            <FaPaperPlane size={20} className="ml-2 text-green-600 hover:cursor-pointer"/>
-          </a>
-        </div>
+      </div>
+      <div className='flex justify-center items-center w-full'>
+      <input
+        value={commentbody}
+        onChange={(e) => setCommentBody(e.target.value)}
+        placeholder='Chat Here ...'
+        className='p-1 border flex w-full border-green-400 outline-green-300'
+      />
+      <FaPaperPlane
+      size={25}
+        onClick={onComment}
+        className='border ml-1 p-1 rounded-md bg-green-500 hover:cursor-pointer text-white'
+      />
       </div>
     </div>
   );

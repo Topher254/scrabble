@@ -363,23 +363,35 @@ const Play2 = () => {
 
       e.target.value = "";
     } else if (e.key === 'Shift') {
-      if (randomLetters.length === 0) {
-        alert("No random letters generated yet.");
-        return;
+      // Map each input letter to its corresponding position in the random letters list
+      let newRandomLetters = [...randomLetters];
+      let newInputLetters = [];
+
+      inputLetters.forEach(({ letter }) => {
+        const index = newRandomLetters.indexOf(letter);
+        if (index !== -1) {
+          newRandomLetters.splice(index, 1);
+        } else {
+          newInputLetters.push({ letter, row: lastPosition.row, col: lastPosition.col });
+        }
+      });
+
+      setRandomLetters(newRandomLetters);
+      setInputLetters(newInputLetters);
+
+      const word = constructWord();
+      if (word) {
+        const result = await checkWord(word);
+        if (result.exists) {
+          alert(`The word "${word}" exists in the English dictionary.`);
+        } else {
+          alert(`The word "${word}" does not exist in the English dictionary.`);
+        }
+      } else {
+        alert("No word to check.");
       }
-
-      const randomIndex = Math.floor(Math.random() * randomLetters.length);
-      const deletedLetter = randomLetters[randomIndex];
-
-      const updatedRandomLetters = [...randomLetters];
-      updatedRandomLetters.splice(randomIndex, 1);
-
-      setRandomLetters(updatedRandomLetters);
-
-      alert(`Deleted random letter '${deletedLetter}'. Remaining random letters: ${updatedRandomLetters.join(", ")}`);
     }
   };
-
 
   const constructWord = () => {
     if (inputLetters.length === 0) return "";
@@ -395,25 +407,6 @@ const Play2 = () => {
     return sortedLetters.map(({ letter }) => letter).join("");
   };
 
-  /*const entering = (e) => {
-    if (e.key === 'Shift') {
-      if (randomLetters.length === 0) {
-        alert("No random letters generated yet.");
-        return;
-      }
-      
-      const randomIndex = Math.floor(Math.random() * randomLetters.length);
-      const deletedLetter = randomLetters[randomIndex];
-      
-      const updatedRandomLetters = [...randomLetters];
-      updatedRandomLetters.splice(randomIndex, 1);
-      
-      setRandomLetters(updatedRandomLetters);
-      
-      alert(`Deleted random letter '${deletedLetter}'. Remaining random letters: ${updatedRandomLetters.join(", ")}`);
-    }
-  };
-*/
   return (
     <div className="flex">
       <div className="flex flex-col">
