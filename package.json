@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.7.2",
     "check-word": "^1.1.0",
     "dictionary-en": "^4.0.0",
     "react": "^18.2.0",
