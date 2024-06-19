@@ -39,3 +39,9 @@ export const about_items = [
     description: "The game ends when all tiles have been drawn and one player uses all their tiles, or when no more plays are possible (i.e., when players pass consecutively). The player with the highest score wins. In the case of a tie, the player who went out first wins."
   },
 ]
+export const comments =[
+  {
+    id:1,
+    userName:"Topher"
+  },
+]
