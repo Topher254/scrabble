@@ -294,6 +294,10 @@ const Play2 = () => {
   const [randomLetters, setRandomLetters] = useState([]);
   const [isFirstInput, setIsFirstInput] = useState(true);
   const [lastPosition, setLastPosition] = useState({ row: 7, col: 7 });
+  const [isShiftPressed, setIsShiftPressed] = useState(false);
+  const [score, setScore] = useState(0); // State for score
+  const [validWord, setValidWord] = useState(""); // State for valid word
+  const [currentWord, setCurrentWord] = useState(""); // State for current word
 
   useEffect(() => {
     generateRandomLetters();
@@ -320,6 +324,10 @@ const Play2 = () => {
   };
 
   const handleKeyPress = async (e, rowIndex, colIndex) => {
+    if (isShiftPressed) {
+      return; // Do not allow any input if Shift is pressed
+    }
+
     if (e.key === 'Enter') {
       let inputLetter = e.target.value.toUpperCase();
 
@@ -363,7 +371,8 @@ const Play2 = () => {
 
       e.target.value = "";
     } else if (e.key === 'Shift') {
-      // Map each input letter to its corresponding position in the random letters list
+      setIsShiftPressed(true);
+
       let newRandomLetters = [...randomLetters];
       let newInputLetters = [];
 
@@ -380,12 +389,16 @@ const Play2 = () => {
       setInputLetters(newInputLetters);
 
       const word = constructWord();
+      setCurrentWord(word); // Update the current word state
       if (word) {
         const result = await checkWord(word);
         if (result.exists) {
           alert(`The word "${word}" exists in the English dictionary.`);
+          setValidWord(word);
+          calculateScore(word);
         } else {
           alert(`The word "${word}" does not exist in the English dictionary.`);
+          setValidWord(""); // Clear valid word if not valid
         }
       } else {
         alert("No word to check.");
@@ -407,8 +420,22 @@ const Play2 = () => {
     return sortedLetters.map(({ letter }) => letter).join("");
   };
 
+  const handleKeyUp = (e) => {
+    if (e.key === 'Shift') {
+      setIsShiftPressed(false);
+    }
+  };
+
+  const calculateScore = (word) => {
+    let wordScore = 0;
+    for (let letter of word) {
+      wordScore += letterValues[letter.toUpperCase()] || 0;
+    }
+    setScore(wordScore);
+  };
+
   return (
-    <div className="flex">
+    <div className="flex" onKeyUp={handleKeyUp}>
       <div className="flex flex-col">
         {GridArray.map((grid, rowIndex) => (
           <div key={rowIndex}>
@@ -435,6 +462,7 @@ const Play2 = () => {
                           : "",
                     }}
                     tabIndex={0}
+                    disabled={isShiftPressed} // Disable input if Shift is pressed
                   />
                   <div
                     className="text-[8px] absolute top-0 right-0 text-white"
@@ -465,27 +493,34 @@ const Play2 = () => {
         ))}
       </div>
       <div>
-
-      <div className="flex flex-col shadow-md shadow-slate-200 mx-[1em] p-2 ml-4">
-        <div className="text-green-600 font-bold mb-2">Random Letters:</div>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {randomLetters.map((letter, index) => (
-            <div
-              key={index}
-              className="bg-green-200 py-2 px-4 rounded-md text-xl italic font-bold"
-            >
-              {letter}
-            </div>
-          ))}
+        <div className="flex flex-col shadow-md shadow-slate-200 mx-[1em] p-2 ml-4">
+          <div className="text-green-600 font-bold mb-2">Random Letters:</div>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {randomLetters.map((letter, index) => (
+              <div
+                key={index}
+                className="bg-green-200 py-2 px-4 rounded-md text-2xl font-bold text-green-800"
+              >
+                {letter}
+              </div>
+            ))}
+          </div>
+          <div className="text-green-600 font-bold mb-2">Your Word:</div>
+          <div className="text-xl font-bold mb-4">{currentWord}</div> {/* Display current word */}
+         
+          <div className="text-green-600 font-bold mb-2">Score:</div>
+          <div className="text-2xl font-bold">{validWord ? score : "0"}</div> {/* Display score if valid word */}
+          <input
+            type="text"
+            onChange={handleInputChange}
+            className="px-[1em] w-full rounded-md"
+          />
+          <div>
+            <FirstDiv className="py-2" />
+            <SecondDiv className="py-2" />
+            <Comments className="py-2" />
+          </div>
         </div>
-        <Words inputLetters={inputLetters} GridArray={GridArray} letterValues={letterValues} />
-      </div>  <div className="px-[1em] w-full rounded-md">
-        <div>
-          <FirstDiv className="py-2" />
-          <SecondDiv className="py-2" />
-          <Comments className="py-2" />
-        </div>
-      </div>
       </div>
     </div>
   );
