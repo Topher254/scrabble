@@ -74,9 +74,9 @@ const SignUp = () => {
         <h1 className='text-xl text-green-600 font-semibold mb-4 items-center flex justify-center'>Sign Up</h1>
         <form onSubmit={handleSubmit} className='flex'>
           <div className='w-1/2'>
-            <img src={imej} alt="Profile" className='min-w-full h-auto '/>
+            <img src={imej} alt="Profile" className='min-w-full h-auto'/>
           </div>
-          <div className='ml-4 flex flex-col justify-between'>
+          <div className='ml-4 flex flex-col justify-between w-1/2'>
             <div className='my-2'>
               <label htmlFor="first-name" className='mr-2'>First Name</label>
               <input 
@@ -164,31 +164,22 @@ const SignUp = () => {
                 required
               />
             </div>
+            <div className='flex justify-center items-center mt-4'>
+              <button 
+                type="submit"
+                id="submit-button"
+                className='bg-green-600 text-white py-2 px-4 rounded-md mr-2'
+              >
+                Submit
+              </button>
+              <Link to="/signin" className='text-green-600 bg-white border border-green-600 py-2 px-4 rounded-md'>
+                Log In
+              </Link>
+            </div>
           </div>
         </form>
-        <div className='flex justify-center items-center mt-4'>
-          <button 
-            type="submit"
-            id="submit-button"
-            onClick={handleSubmit}
-            className='bg-green-600 text-white py-2 px-4 rounded-md mr-2'
-          >
-            Submit
-          </button>
-          <button 
-            type="submit"
-            id="submit-button"
-            onClick={handleSubmit}
-            className='text-green-600 bg-white border border-green-600 py-2 px-4 rounded-md mr-2'
-          >
-           <Link to="/signin"> Log In</Link>
-          </button>
-          
-        </div>
-        
         {message && <div className='mt-4 text-red-600'>{message}</div>}
       </div>
-      
     </div>
   );
 }
