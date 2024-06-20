@@ -281,26 +281,55 @@ const Play2 = () => {
     ],
   ];
 
-
   const letterValues = {
-    A: 1, B: 3, C: 3, D: 2, E: 1, F: 4, G: 2,
-    H: 4, I: 1, J: 8, K: 5, L: 1, M: 3, N: 1,
-    O: 1, P: 3, Q: 10, R: 1, S: 1, T: 1, U: 1,
-    V: 4, W: 4, X: 8, Y: 4, Z: 10
+    A: 1,
+    B: 3,
+    C: 3,
+    D: 2,
+    E: 1,
+    F: 4,
+    G: 2,
+    H: 4,
+    I: 1,
+    J: 8,
+    K: 5,
+    L: 1,
+    M: 3,
+    N: 1,
+    O: 1,
+    P: 3,
+    Q: 10,
+    R: 1,
+    S: 1,
+    T: 1,
+    U: 1,
+    V: 4,
+    W: 4,
+    X: 8,
+    Y: 4,
+    Z: 10,
   };
 
-  const [boardLetters, setBoardLetters] = useState(Array(15).fill().map(() => Array(15).fill("")));
+  const [boardLetters, setBoardLetters] = useState(
+    Array(15)
+      .fill()
+      .map(() => Array(15).fill(""))
+  );
   const [inputLetters, setInputLetters] = useState([]);
   const [randomLetters, setRandomLetters] = useState([]);
   const [isFirstInput, setIsFirstInput] = useState(true);
   const [lastPosition, setLastPosition] = useState({ row: 7, col: 7 });
+  const [isShiftPressed, setIsShiftPressed] = useState(false);
+  const [score, setScore] = useState(0); // State for score
+  const [validWord, setValidWord] = useState(""); // State for valid word
+  const [currentWord, setCurrentWord] = useState(""); // State for current word
 
   useEffect(() => {
     generateRandomLetters();
   }, []);
 
   const generateRandomLetters = () => {
-    const Alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const Alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     let letters = [];
     for (let i = 0; i < 7; i++) {
       const randomIndex = Math.floor(Math.random() * Alphabets.length);
@@ -309,8 +338,21 @@ const Play2 = () => {
     setRandomLetters(letters);
   };
 
+  const handleInputChange = (e) => {
+    const inputLetter = e.target.value.toUpperCase();
+    if (/^[A-Za-z]$/.test(inputLetter)) {
+      setInputLetters((prevInputLetters) => [
+        ...prevInputLetters,
+        { letter: inputLetter },
+      ]);
+      e.target.value = "";
+    } else {
+      alert("Please enter a single alphabetic character.");
+    }
+  };
+
   const handleKeyPress = async (e, rowIndex, colIndex) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       let inputLetter = e.target.value.toUpperCase();
 
       if (!randomLetters.includes(inputLetter)) {
@@ -327,11 +369,15 @@ const Play2 = () => {
 
       if (!isFirstInput) {
         const isValidMove =
-          (rowIndex === lastPosition.row && Math.abs(colIndex - lastPosition.col) === 1) ||
-          (colIndex === lastPosition.col && Math.abs(rowIndex - lastPosition.row) === 1);
+          (rowIndex === lastPosition.row &&
+            Math.abs(colIndex - lastPosition.col) === 1) ||
+          (colIndex === lastPosition.col &&
+            Math.abs(rowIndex - lastPosition.row) === 1);
 
         if (!isValidMove) {
-          alert("You can only place the letter adjacent to the last letter (up, down, left, or right).");
+          alert(
+            "You can only place the letter adjacent to the last letter (up, down, left, or right)."
+          );
           e.target.value = "";
           return;
         }
@@ -346,20 +392,47 @@ const Play2 = () => {
         return newBoardLetters;
       });
 
-      setInputLetters((prevInputLetters) => [...prevInputLetters, { letter: inputLetter, row: rowIndex, col: colIndex }]);
+      setInputLetters((prevInputLetters) => [
+        ...prevInputLetters,
+        { letter: inputLetter, row: rowIndex, col: colIndex },
+      ]);
 
       setLastPosition({ row: rowIndex, col: colIndex });
       setIsFirstInput(false);
 
       e.target.value = "";
-    } else if (e.key === 'Shift') {
+    } else if (e.key === "Shift") {
+      // Map each input letter to its corresponding position in the random letters list
+      let newRandomLetters = [...randomLetters];
+      let newInputLetters = [];
+
+      inputLetters.forEach(({ letter }) => {
+        const index = newRandomLetters.indexOf(letter);
+        if (index !== -1) {
+          newRandomLetters.splice(index, 1);
+        } else {
+          newInputLetters.push({
+            letter,
+            row: lastPosition.row,
+            col: lastPosition.col,
+          });
+        }
+      });
+
+      setRandomLetters(newRandomLetters);
+      setInputLetters(newInputLetters);
+
       const word = constructWord();
+      setCurrentWord(word); // Update the current word state
       if (word) {
         const result = await checkWord(word);
         if (result.exists) {
           alert(`The word "${word}" exists in the English dictionary.`);
+          setValidWord(word);
+          calculateScore(word);
         } else {
           alert(`The word "${word}" does not exist in the English dictionary.`);
+          setValidWord(""); // Clear valid word if not valid
         }
       } else {
         alert("No word to check.");
@@ -372,7 +445,9 @@ const Play2 = () => {
 
     const sortedLetters = inputLetters.sort((a, b) => a.col - b.col);
 
-    const isVertical = sortedLetters.every(({ col }, i, arr) => col === arr[0].col);
+    const isVertical = sortedLetters.every(
+      ({ col }, i, arr) => col === arr[0].col
+    );
 
     if (isVertical) {
       sortedLetters.sort((a, b) => a.row - b.row);
@@ -381,14 +456,28 @@ const Play2 = () => {
     return sortedLetters.map(({ letter }) => letter).join("");
   };
 
+  const handleKeyUp = (e) => {
+    if (e.key === "Shift") {
+      setIsShiftPressed(false);
+    }
+  };
+
+  const calculateScore = (word) => {
+    let wordScore = 0;
+    for (let letter of word) {
+      wordScore += letterValues[letter.toUpperCase()] || 0;
+    }
+    setScore(wordScore);
+  };
+
   return (
-    <div className="flex">
-      <div className="flex flex-col">
+    <div className="flex flex-col md:flex-row max-w-full" onKeyUp={handleKeyUp}>
+      <div className="flex flex-col max-w-full">
         {GridArray.map((grid, rowIndex) => (
           <div key={rowIndex}>
-            <div className="flex">
+            <div className="flex max-w-full">
               {grid.map((cell, colIndex) => (
-                <div key={colIndex} className="relative">
+                <div key={colIndex} className="relative max-w-full">
                   <input
                     type="text"
                     maxLength={1}
@@ -409,6 +498,7 @@ const Play2 = () => {
                           : "",
                     }}
                     tabIndex={0}
+                    disabled={isShiftPressed} // Disable input if Shift is pressed
                   />
                   <div
                     className="text-[8px] absolute top-0 right-0 text-white"
@@ -438,28 +528,41 @@ const Play2 = () => {
           </div>
         ))}
       </div>
-      <div>
+      <div className="w-full">
+        <div className="flex flex-col shadow-md shadow-slate-200 mx-[1em] p-2 ml-4">
+          <div className="text-green-600 font-bold mb-2 flex flex-col">
+            <h1>Your Letters</h1>
+          </div>
 
-      <div className="flex flex-col shadow-md shadow-slate-200 mx-[1em] p-2 ml-4">
-        <div className="text-green-600 font-bold mb-2">Random Letters:</div>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {randomLetters.map((letter, index) => (
-            <div
-              key={index}
-              className="bg-green-200 py-2 px-4 rounded-md text-xl italic font-bold"
-            >
-              {letter}
-            </div>
-          ))}
+          <div className="flex  gap-2 mb-4 ">
+            {randomLetters.map((letter, index) => (
+              <div className="bg-blue-300 rounded-md p-1 min-w-10 min-h-10  ">
+                <div
+                  key={index}
+                  className="bg-green-200 py-2 flex  px-4 rounded-md text-xl min-w-10 min-h-10 italic font-bold"
+                >
+                  <p className="">{letter}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-end">
+            <button className="p-2 border border-indigo-300 rounded-md  text-green-600">Get New Letters</button>
+          </div>
+          <div className="flex">
+            <Words
+              inputLetters={inputLetters}
+              GridArray={GridArray}
+              letterValues={letterValues}
+            />
+          </div>
         </div>
-        <Words inputLetters={inputLetters} GridArray={GridArray} letterValues={letterValues} />
-      </div>  <div className="px-[1em] w-full rounded-md">
-        <div>
-          <FirstDiv className="py-2" />
-          <SecondDiv className="py-2" />
-          <Comments className="py-2" />
+        <div className="px-[1em] w-full  rounded-md">
+          <div>
+            <SecondDiv className="py-2" />
+            <Comments className="py-2" />
+          </div>
         </div>
-      </div>
       </div>
     </div>
   );
