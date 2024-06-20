@@ -457,7 +457,7 @@ const Play2 = () => {
   };
 
   const handleKeyUp = (e) => {
-    if (e.key === 'Shift') {
+    if (e.key === "Shift") {
       setIsShiftPressed(false);
     }
   };
@@ -471,13 +471,13 @@ const Play2 = () => {
   };
 
   return (
-    <div className="flex" onKeyUp={handleKeyUp}>
-      <div className="flex flex-col">
+    <div className="flex flex-col md:flex-row max-w-full" onKeyUp={handleKeyUp}>
+      <div className="flex flex-col max-w-full">
         {GridArray.map((grid, rowIndex) => (
           <div key={rowIndex}>
-            <div className="flex">
+            <div className="flex max-w-full">
               {grid.map((cell, colIndex) => (
-                <div key={colIndex} className="relative">
+                <div key={colIndex} className="relative max-w-full">
                   <input
                     type="text"
                     maxLength={1}
@@ -528,10 +528,12 @@ const Play2 = () => {
           </div>
         ))}
       </div>
-      <div>
+      <div className="w-full">
         <div className="flex flex-col shadow-md shadow-slate-200 mx-[1em] p-2 ml-4">
-          <div className="text-green-600 font-bold mb-2">Random Letters:</div>
-        
+          <div className="text-green-600 font-bold mb-2 flex flex-col">
+            <h1>Your Letters</h1>
+          </div>
+
           <div className="flex  gap-2 mb-4 ">
             {randomLetters.map((letter, index) => (
               <div className="bg-blue-300 rounded-md p-1 min-w-10 min-h-10  ">
@@ -544,6 +546,9 @@ const Play2 = () => {
               </div>
             ))}
           </div>
+          <div className="flex justify-end">
+            <button className="p-2 border border-indigo-300 rounded-md  text-green-600">Get New Letters</button>
+          </div>
           <div className="flex">
             <Words
               inputLetters={inputLetters}
@@ -552,9 +557,8 @@ const Play2 = () => {
             />
           </div>
         </div>
-        <div className="px-[1em] w-full rounded-md">
+        <div className="px-[1em] w-full  rounded-md">
           <div>
-            <FirstDiv className="py-2" />
             <SecondDiv className="py-2" />
             <Comments className="py-2" />
           </div>
