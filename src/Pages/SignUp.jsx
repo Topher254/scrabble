@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import imej from '../assets/image.jpeg';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
@@ -11,8 +12,8 @@ const SignUp = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [message, setMessage] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [submittedPlayer, setSubmittedPlayer] = useState(null);
 
-  // Function to generate a random password and copy it to clipboard
   const generateAndCopyPassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let generatedPassword = '';
@@ -24,7 +25,7 @@ const SignUp = () => {
     alert('Password copied to clipboard!');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (password !== repeatPassword) {
@@ -41,21 +42,33 @@ const SignUp = () => {
     const userDetails = {
       firstName,
       lastName,
-      username,
+      userName,// Match the backend field
       gender,
       password
     };
 
-    console.log('User Details:', userDetails);
+    try {
+      const response = await axios.post('http://localhost:1235/players/add', userDetails);
+      
+      if (response.data && response.data.id) {
+        const playerInfo = await axios.get(`http://localhost:1235/players/${response.data.id}`);
+        setSubmittedPlayer(playerInfo.data);
+        setMessage('Sign-up successful!');
+      } else {
+        setMessage('Error: Player ID not found in response');
+      }
 
-    setFirstName('');
-    setLastName('');
-    setUsername('');
-    setGender('');
-    setPassword('');
-    setRepeatPassword('');
-    setMessage('Sign-up successful!');
-    setPasswordError('');
+      setFirstName('');
+      setLastName('');
+      setUsername('');
+      setGender('');
+      setPassword('');
+      setRepeatPassword('');
+      setPasswordError('');
+    } catch (error) {
+      console.error('Error adding player:', error);
+      setMessage('Error adding player');
+    }
   };
 
   const handleKeyDown = (e, nextFieldId) => {
@@ -181,16 +194,24 @@ const SignUp = () => {
             onClick={handleSubmit}
             className='text-green-600 bg-white border border-green-600 py-2 px-4 rounded-md mr-2'
           >
-           <Link to="/signin"> Log In</Link>
+            <Link to="/signin"> Log In</Link>
           </button>
-          
         </div>
         
         {message && <div className='mt-4 text-red-600'>{message}</div>}
       </div>
-      
+
+      {submittedPlayer && (
+        <div className='mt-8'>
+          <h3 className='text-lg font-semibold'>Player Information</h3>
+          <p>First Name: {submittedPlayer.firstName}</p>
+          <p>Last Name: {submittedPlayer.lastName}</p>
+          <p>Username: {submittedPlayer.userName}</p>
+          <p>Gender: {submittedPlayer.gender}</p>
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default SignUp;
