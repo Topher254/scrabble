@@ -319,6 +319,10 @@ const Play2 = () => {
   const [randomLetters, setRandomLetters] = useState([]);
   const [isFirstInput, setIsFirstInput] = useState(true);
   const [lastPosition, setLastPosition] = useState({ row: 7, col: 7 });
+  const [isShiftPressed, setIsShiftPressed] = useState(false);
+  const [score, setScore] = useState(0); // State for score
+  const [validWord, setValidWord] = useState(""); // State for valid word
+  const [currentWord, setCurrentWord] = useState(""); // State for current word
 
   useEffect(() => {
     generateRandomLetters();
@@ -419,12 +423,16 @@ const Play2 = () => {
       setInputLetters(newInputLetters);
 
       const word = constructWord();
+      setCurrentWord(word); // Update the current word state
       if (word) {
         const result = await checkWord(word);
         if (result.exists) {
           alert(`The word "${word}" exists in the English dictionary.`);
+          setValidWord(word);
+          calculateScore(word);
         } else {
           alert(`The word "${word}" does not exist in the English dictionary.`);
+          setValidWord(""); // Clear valid word if not valid
         }
       } else {
         alert("No word to check.");
@@ -448,8 +456,22 @@ const Play2 = () => {
     return sortedLetters.map(({ letter }) => letter).join("");
   };
 
+  const handleKeyUp = (e) => {
+    if (e.key === 'Shift') {
+      setIsShiftPressed(false);
+    }
+  };
+
+  const calculateScore = (word) => {
+    let wordScore = 0;
+    for (let letter of word) {
+      wordScore += letterValues[letter.toUpperCase()] || 0;
+    }
+    setScore(wordScore);
+  };
+
   return (
-    <div className="flex">
+    <div className="flex" onKeyUp={handleKeyUp}>
       <div className="flex flex-col">
         {GridArray.map((grid, rowIndex) => (
           <div key={rowIndex}>
@@ -476,6 +498,7 @@ const Play2 = () => {
                           : "",
                     }}
                     tabIndex={0}
+                    disabled={isShiftPressed} // Disable input if Shift is pressed
                   />
                   <div
                     className="text-[8px] absolute top-0 right-0 text-white"
