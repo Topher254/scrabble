@@ -186,7 +186,7 @@ const SignUp = () => {
             onClick={handleSubmit}
             className='bg-green-600 text-white py-2 px-4 rounded-md mr-2'
           >
-          <Link to="/signin"> Submit</Link>
+          <Link to=""> Submit</Link>
           </button>
           <button 
             type="submit"
