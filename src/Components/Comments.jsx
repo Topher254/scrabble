@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiPaperPlane } from 'react-icons/bi';
 import { FaPaperPlane } from 'react-icons/fa';
 
@@ -25,6 +25,20 @@ const Comments = () => {
   const [userComment, setUserComment] = useState(dummycomments);
   const [commentbody, setCommentBody] = useState('');
 
+  const [backendUser, setBackendUser] = useState({ users: [] });
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Fetched data:", data); // Log fetched data
+        setBackendUser(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error); // Log any errors
+      });
+  }, []);
+
 // avoiding empty comments
 
   const onComment = () => {
@@ -47,11 +61,15 @@ const Comments = () => {
     <div className='shadow-md shadow-slate-300 py-[1em] px-[1em] '>
       <p className='text-xl text-green-600 font-semibold'>Let's Chat</p>
       <div>
-        {userComment.map((com) => (
-          <div key={com.id}>
-            <p className='text-green-900 font-mono'>{com.userName}:<span className='text-green-700 italic'> {com.comment}</span></p>
-          </div>
-        ))}
+      {backendUser.users.length === 0 ? (
+        <p>Loading Users ...</p>
+      ) : (
+        backendUser.users.map((user, i) => (
+          
+          <p className='font-mono text-green-800 font-semibold ' key={i}>{user.username}{':'}
+          <span className='ml-2 italic text-blue-700 font-normal'>{user.chat_message}</span></p>
+        ))
+      )}
       </div>
       <div className='flex justify-center items-center w-full'>
       <input

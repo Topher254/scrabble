@@ -3,10 +3,15 @@ const cors = require("cors");
 const app = express();
 
 app.use(cors());
-app.use(express.json());
 
-app.get("/message", (req, res) => {
-  res.json({ message: "UserNAME!" });
+app.get("/api", (req, res) => {
+  res.json({
+    users: [
+      { username: 'Topher', score: 90, email: 'user1@example.com' ,chat_message: "Yoh"},
+      { username: 'Ron', score: 85, email: 'user2@example.com' ,chat_message: "Ukoje"},
+      { username: 'Sam', score: 80, email: 'user3@example.com' ,chat_message: "Niko Poa"}
+    ]
+  });
 });
 
 app.listen(8000, () => {
