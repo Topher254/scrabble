@@ -48,10 +48,10 @@ const SignUp = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:1235/players/add', userDetails);
+      const request = await axios.post('http://localhost:8000/players/add', userDetails);
       
-      if (response.data && response.data.id) {
-        const playerInfo = await axios.get(`http://localhost:1235/players/${response.data.id}`);
+      if (request.data && request.data.id) {
+        const playerInfo = await axios.get(`http://localhost:8000/players/${response.data.id}`);
         setSubmittedPlayer(playerInfo.data);
         setMessage('Sign-up successful!');
       } else {

@@ -6,6 +6,7 @@ import SignUp from "./Pages/SignUp";
 import SignIn from "./Pages/SignIn";
 import About from "./Components/About";
 import AddPlayer from "../AddPlayer"; // Ensure this import path is correct
+import SignUpNEw from "./Pages/SignUpNEw";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
         <Topbar />
         <Routes>
           <Route path="/" element={<Maingame />} />
-          <Route path="/signout" element={<SignUp />} />
+          <Route path="/signout" element={<SignUpNEw/>} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/about" element={<About />} />
           <Route path="/logged" element={<Maingame />} />
