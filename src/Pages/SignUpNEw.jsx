@@ -64,8 +64,9 @@ const SignUpNEw = () => {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <div className='w-full h-screen flex items-center  justify-center'>  
+    <div className='px-[3em] rounded-md shadow-md shadow-slate-200 py-[3em] w-[30em]'>
+      <h1 className='flex justify-center text-2xl text-green-600 font-semibold py-4'>Register</h1>
       {!Valid && (
         <span className="text-red-500">
           {Errors.userName && <div>{Errors.userName}</div>}
@@ -75,46 +76,57 @@ const SignUpNEw = () => {
         </span>
       )}
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
+        <div className='flex flex-col '>
+          <label className='text-green-800 font-semibold'>UserName</label>
+          <input className='outline-none border border-green-500 my-1 py-2 rounded-md'
             type="text"
             name="userName"
             value={formData.userName}
             onChange={handleChange}
+            placeholder='UserName'
           />
         </div>
-        <div>
-          <label>Email:</label>
-          <input
+        <div className='flex flex-col  '>
+          <label className='text-green-800 font-semibold'>Email</label>
+          <input className='outline-none border border-green-500 my-1 py-2 rounded-md'
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
+            placeholder='Enter Email'
           />
         </div>
-        <div>
-          <label>Password:</label>
-          <input
+        <div className='flex flex-col '>
+          <label className='text-green-800 font-semibold'>Password</label>
+          <input className='outline-none border border-green-500 my-1 py-2 rounded-md'
             type="password"
             name="password"
             value={formData.password}
             onChange={handleChange}
+            placeholder='Password'
           />
         </div>
-        <div>
-          <label>Confirm Password:</label>
-          <input
+        <div className='flex flex-col '>
+          <label className='text-green-800 font-semibold'>Confirm Password</label>
+          <input className='outline-none border border-green-500 my-1 py-2 rounded-md'
             type="password"
             name="C_password"
             value={formData.C_password}
             onChange={handleChange}
+            placeholder='Confirm Password'
           />
         </div>
-        <button type="submit" className="bg-green-500">
+        <button type="submit" className="bg-green-500 px-2 py-2 rounded-md flex justify-center w-full mt-6
+        text-white">
           Register
         </button>
+        <p className='flex justify-center my-2'>Or</p>
+        <button type="submita" className="bg-white px-2 py-2 rounded-md flex justify-center w-full 
+        text-green-500 border-green-500 border">
+          Login
+        </button>
       </form>
+      </div> 
     </div>
   );
 };
