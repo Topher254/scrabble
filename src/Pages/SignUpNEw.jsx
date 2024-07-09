@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const SignUpNEw = () => {
   const [formData, setFormData] = useState({
@@ -121,9 +122,9 @@ const SignUpNEw = () => {
           Register
         </button>
         <p className='flex justify-center my-2'>Or</p>
-        <button type="submita" className="bg-white px-2 py-2 rounded-md flex justify-center w-full 
+        <button className="bg-white px-2 py-2 rounded-md flex justify-center w-full 
         text-green-500 border-green-500 border">
-          Login
+          <Link to="/signin"> Login</Link> 
         </button>
       </form>
       </div> 
