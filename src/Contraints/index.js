@@ -7,10 +7,6 @@ export const Navbar_components = [
     label: "Log In",
     href: "/signin",
   },
-  {
-    label: "Sign Up",
-    href: "/signout",
-  },
 ];
 
 export const about_items = [

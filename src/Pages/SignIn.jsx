@@ -18,6 +18,7 @@ const SignIn = () => {
       });
 
       localStorage.setItem('token', response.data.token);
+      localStorage.setItem('username', username); // Save username to local storage
       setMessage('Sign-in successful!');
       navigate('/profile');
     } catch (error) {
@@ -70,6 +71,6 @@ const SignIn = () => {
       </div>
     </div>
   );
-}
+};
 
 export default SignIn;
