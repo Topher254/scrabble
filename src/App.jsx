@@ -5,6 +5,7 @@ import Topbar from "./Components/Topbar";
 import SignUp from "./Pages/SignUp";
 import SignIn from "./Pages/SignIn";
 import About from "./Components/About";
+import Profile from "./Components/ProfilePage";
 
 function App() {
   return (
@@ -13,11 +14,10 @@ function App() {
         <Topbar />
           <Routes>
           <Route path="/" element= {<Maingame />}/>
-          <Route path="/signout" element={<SignUp/>}/>
-          <Route path="/signin" element={<SignIn/>}/>
-          <Route path="/about" element={<About/>}/>
-          <Route path="/logged" element={<Maingame/>}/>
-          
+          <Route path="/signup" element={<SignUp />}/>
+          <Route path="/signin" element={<SignIn />}/>
+          <Route path="/about" element={<About />}/>
+          <Route path="/profile" element={<Profile />}/>
         </Routes>
         <Footer/>
       </BrowserRouter>

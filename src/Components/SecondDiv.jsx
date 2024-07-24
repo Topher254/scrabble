@@ -1,5 +1,5 @@
 import React from 'react'
-import imagee from "../assets/userName.png";
+import imagee from "../assets/username.png";
 
 const SecondDiv = () => {
   return (

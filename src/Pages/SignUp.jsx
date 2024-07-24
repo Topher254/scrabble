@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
-import imej from '../assets/image.jpeg';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import imej from '../assets/image.jpeg';
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
-  const [gender, setGender] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [message, setMessage] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  // Function to generate a random password and copy it to clipboard
   const generateAndCopyPassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let generatedPassword = '';
@@ -24,7 +24,7 @@ const SignUp = () => {
     alert('Password copied to clipboard!');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (password !== repeatPassword) {
@@ -38,24 +38,26 @@ const SignUp = () => {
       return;
     }
 
-    const userDetails = {
-      firstName,
-      lastName,
-      username,
-      gender,
-      password
-    };
+    try {
+      const response = await axios.post('http://localhost:5000/signup', {
+        firstName,
+        lastName,
+        username,
+        email,
+        password
+      });
 
-    console.log('User Details:', userDetails);
-
-    setFirstName('');
-    setLastName('');
-    setUsername('');
-    setGender('');
-    setPassword('');
-    setRepeatPassword('');
-    setMessage('Sign-up successful!');
-    setPasswordError('');
+      setMessage(response.data);
+      setFirstName('');
+      setLastName('');
+      setUsername('');
+      setEmail('');
+      setPassword('');
+      setRepeatPassword('');
+      setPasswordError('');
+    } catch (error) {
+      setMessage('Error signing up: ' + (error.response?.data || error.message));
+    }
   };
 
   const handleKeyDown = (e, nextFieldId) => {
@@ -112,26 +114,22 @@ const SignUp = () => {
                 className='w-full bg-green-300 p-1 outline-none'
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                onKeyDown={(e) => handleKeyDown(e, 'gender')}
+                onKeyDown={(e) => handleKeyDown(e, 'email')}
                 required
               />
             </div>
             <div className='my-2'>
-              <label htmlFor="gender" className='mr-2'>Gender</label>
-              <select 
-                id="gender" 
-                name="gender" 
+              <label htmlFor="email" className='mr-2'>Email</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
                 className='w-full bg-green-300 p-1 outline-none'
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 onKeyDown={(e) => handleKeyDown(e, 'password')}
                 required
-              >
-                <option value="">Select your gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
+              />
             </div>
             <div className='my-2'>
               <label htmlFor="password" className='mr-2'>Password</label>

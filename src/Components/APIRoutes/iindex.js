@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const prisma = new PrismaClient();
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 30001;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key'; // Use a secure key in production
 
 app.use(express.json());
