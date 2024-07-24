@@ -9,7 +9,7 @@ const Topbar = () => {
   return (
     <div className="flex justify-between py-[1em] px-[2em] bg-green-700 text-white">
       <div>
-        <Link to='/about'>
+        <Link to='/'> {/* Updated route to the game landing page */}
           <h1 className="text-xl font-semibold">Scrabble Pro</h1>
         </Link>
       </div>
