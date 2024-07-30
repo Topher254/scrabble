@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import imej from '../assets/image.jpeg';
 
@@ -12,6 +12,8 @@ const SignUp = () => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [message, setMessage] = useState('');
   const [passwordError, setPasswordError] = useState('');
+
+  const navigate = useNavigate();
 
   const generateAndCopyPassword = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -55,6 +57,8 @@ const SignUp = () => {
       setPassword('');
       setRepeatPassword('');
       setPasswordError('');
+
+      navigate('/');
     } catch (error) {
       setMessage('Error signing up: ' + (error.response?.data || error.message));
     }

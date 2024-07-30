@@ -496,17 +496,17 @@ const Game = () => {
                     className="h-[3.5em] w-[3.5em] bg-slate-300 border p-2 text-center"
                     style={{
                       backgroundColor:
-                        cell.Multi === "triplew"
-                          ? "Tomato"
-                          : cell.Multi === "doubleL"
-                          ? "DeepSkyBlue"
-                          : cell.Multi === "triplel"
-                          ? "blue"
-                          : cell.Multi === "doublew"
-                          ? "DeepPink"
-                          : cell.Multi === "_"
-                          ? "MediumVioletRed"
-                          : "",
+                        cell.Multi === 'triplew'
+                          ? 'Tomato'
+                          : cell.Multi === 'doubleL'
+                          ? 'DeepSkyBlue'
+                          : cell.Multi === 'triplel'
+                          ? 'blue'
+                          : cell.Multi === 'doublew'
+                          ? 'DeepPink'
+                          : cell.Multi === '_'
+                          ? 'MediumVioletRed'
+                          : '',
                     }}
                     tabIndex={0}
                     disabled={isShiftPressed}
@@ -514,15 +514,15 @@ const Game = () => {
                   <div
                     className="text-[8px] absolute top-0 right-0 text-white"
                     style={{
-                      visibility: cell.Multi === "zero" ? "hidden" : "",
-                      color: cell.Multi === "_" ? "black" : "",
+                      visibility: cell.Multi === 'zero' ? 'hidden' : '',
+                      color: cell.Multi === '_' ? 'black' : '',
                     }}
                   >
                     {cell.Multi}
                     <span
                       className="flex flex-row"
                       style={{
-                        visibility: cell.Multi !== "_" ? "hidden" : "",
+                        visibility: cell.Multi !== '_' ? 'hidden' : '',
                       }}
                     >
                       <FaStar size={25} />
@@ -544,7 +544,6 @@ const Game = () => {
           <div className="text-green-600 font-bold mb-2 flex flex-col">
             <h1>Your Letters</h1>
           </div>
-
           <div className="flex gap-2 mb-4">
             {randomLetters.map((letter, index) => (
               <div key={index} className="bg-blue-300 rounded-md p-1 min-w-10 min-h-10">
@@ -554,8 +553,13 @@ const Game = () => {
               </div>
             ))}
           </div>
-          <div className="text-gray-600 font-bold mb-2 flex flex-col">
-            <h1>Your Score: {score}</h1>
+          <div className="flex flex-col shadow-md shadow-slate-200 mx-[1em] p-2 mt-4">
+            <div className="text-green-600 font-bold mb-2 flex flex-col">
+              <h1>Current Word: {validWord}</h1>
+            </div>
+            <div className="text-red-600 font-bold mb-2 flex flex-col">
+              <h1>Score: {score}</h1>
+            </div>
           </div>
         </div>
       </div>
