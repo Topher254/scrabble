@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // For navigation
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token');
+
+        if (!token) {
+          // Redirect to Sign In if no token is present
+          navigate('/profile');
+          return;
+        }
+
         const response = await axios.get('http://localhost:5000/api/profile', {
           headers: {
             Authorization: `Bearer ${token}`
@@ -17,12 +26,19 @@ const Profile = () => {
 
         setUser(response.data);
       } catch (error) {
-        setMessage('Error fetching profile: ' + (error.response?.data || error.message));
+        if (error.response?.status === 401) {
+          // Unauthorized error, maybe the token is invalid or expired
+          setMessage('Session expired. Please log in again.');
+          localStorage.removeItem('token');
+          navigate('/');
+        } else {
+          setMessage('Error fetching profile: ' + (error.response?.data || error.message));
+        }
       }
     };
 
     fetchUser();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className='flex flex-col items-center justify-center h-screen'>

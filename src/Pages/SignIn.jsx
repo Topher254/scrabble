@@ -12,7 +12,7 @@ const SignIn = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5000/signin', {
+      const response = await axios.post('http://localhost:5000/api/signin', {
         username,
         password
       });
@@ -20,7 +20,7 @@ const SignIn = () => {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('username', username); // Save username to local storage
       setMessage('Sign-in successful!');
-      navigate('/profile');
+      navigate('/');
     } catch (error) {
       setMessage('Error signing in: ' + (error.response?.data || error.message));
     }
